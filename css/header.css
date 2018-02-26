@@ -1,0 +1,84 @@
+
+.nav {
+  height: 8rem;
+  padding: 1rem 0;
+}
+
+.nav .navall {
+  height: 100%;
+}
+
+.nav .navall .nav-l {
+  float: left;
+}
+
+.nav .navall .nav-l .logo {
+  width: 18rem;
+  float: left;
+  height: 7rem;
+  cursor: pointer;
+}
+
+.nav .navall .nav-l #nav {
+  float: left;
+  margin-left: 3rem;
+}
+
+.nav .navall .nav-l #nav li {
+  float: left;
+}
+
+.nav .navall .nav-l #nav li a {
+  text-align: center;
+  padding: 0 2.5rem;
+  margin: 2rem 0;
+  color: #64a131;
+  border-right: 1px solid #eee;
+  line-height: 2rem;
+  display: block;
+}
+
+.nav .navall .nav-l #nav li a span {
+  display: block;
+}
+
+.nav .navall .nav-l #nav li a:hover {
+  background: #eee;
+}
+
+.nav .navall .nav-l #nav li:nth-of-type(5) a {
+  border-right: 0;
+}
+
+.nav .navall .nav-r {
+  float: right;
+}
+
+.nav .navall .nav-r .nav-r-l {
+  float: left;
+  position: relative;
+  width: 11rem;
+  margin-top: 2rem;
+  font-size: 1rem;
+}
+
+.nav .navall .nav-r .nav-r-l a,.nav .navall .nav-r .nav-r-r a {
+  display: inline-block;
+  color: #fff;
+    text-align: center;
+    padding: 0 2.5rem;
+    line-height: 3.5rem;
+    border: 1px solid #64a131;
+    background-color: #64a131;
+    border-radius: 2rem;
+}
+
+.nav .navall .nav-r .nav-r-r {
+  position: relative;
+  float: left;
+  width: 11rem;
+  margin-top: 2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+

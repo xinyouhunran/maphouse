@@ -1,0 +1,25 @@
+
+.foot-b {
+  text-align: center;
+  background-color: #64a131;
+  padding: 1rem 0;
+}
+
+.foot-b p {
+  font-size: 1rem;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.foot-b p:nth-of-type(2) {
+  color: #fff;
+}
+
+.foot-b a {
+  display: inline-block;
+}
+
+.foot-b a:nth-of-type(2) img {
+  width: 33px;
+  height: 47px;
+}
