@@ -6,6 +6,7 @@ import "./template/base.css";
 //container
 import maphouse from "./components/container/maphouse.vue";
 import houselist from "./components/container/houselist.vue";
+import backstage from "./components/container/backstage.vue";
 Vue.use(Vuex);
 //配置路由
 var router = new VueRouter({
@@ -19,6 +20,10 @@ var router = new VueRouter({
 	{
 		path:"/",
 		redirect:'/maphouse'
+	},
+	{
+		path:"/backstage",
+		component:backstage
 	}]
 })
 //配置状态

@@ -212,7 +212,7 @@
 						weidu:116.417854,
 						jingdu:39.921988,
 						contents:"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>华润天城</h4>" + 
-							"<img style='float:right;margin:4px' id='imgDemo' src='images/house0.jpg' width='139' height='104' title='华润天城'/>" + 
+							"<img style='float:right;margin:4px' id='imgDemo' src='../../images/house0.jpg' width='139' height='104' title='华润天城'/>" + 
 							"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...</p>" + 
 							"</div>"
 					},{
@@ -245,7 +245,7 @@
 </script>
 <style scoped>
 h2{margin:0.3rem 0;}
-#houselist{max-height:40rem;overflow-y:scroll;}
+#houselist{max-height:40rem;overflow-y:auto;}
 #houselist li{
 	border-bottom: 1px solid #ddd;
 }
