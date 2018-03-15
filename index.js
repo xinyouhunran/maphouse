@@ -7,6 +7,8 @@ import "./template/base.css";
 import maphouse from "./components/container/maphouse.vue";
 import houselist from "./components/container/houselist.vue";
 import backstage from "./components/container/backstage.vue";
+import xlogin from "./components/container/xlogin.vue";
+import xregister from "./components/container/xregister.vue";
 
 //back
 import xhouse from "./components/back/xhouse.vue";
@@ -20,6 +22,14 @@ var router = new VueRouter({
 	},{
 		path:"/houselist",
 		component:houselist
+	},
+	{
+		path:"/xlogin",
+		component:xlogin
+	},
+	{
+		path:"/xregister",
+		component:xregister
 	},
 	{
 		path:"/",

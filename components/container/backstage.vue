@@ -14,17 +14,18 @@
 				<li>
 					<h2 @click="changeNum(1)">房子</h2>
 					<div class="housenav" v-show="num==1">
-						<a href="">1</a>
-						<a href="">2</a>
-						<a href="">3</a>
+						<a href="#/backstage/xuser">增加房源</a>
+						<a href="">删除房源</a>
+						<a href="">查询房源</a>
+						<a href="">修改房源</a>
 					</div>
 				</li>
 				<li>
 					<h2 @click="changeNum(2)">用户</h2>
 					<div class="usernav" v-show="num==2">
-						<a href="">4</a>
-						<a href="">5</a>
-						<a href="">6</a>
+						<a href="">查询用户</a>
+						<a href="">删除用户</a>
+						<a href="">修改用户</a>
 					</div>
 				</li>
 			</ul>
@@ -108,9 +109,11 @@
 }
 #content #nav li .housenav a{
 	display: block;
+	color: #64a131;
 }
 #content #nav li .usernav a{
 	display: block;
+	color: #64a131;
 }
 #content .con-r{
 	margin-top: 0.5rem;
