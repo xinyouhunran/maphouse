@@ -9,6 +9,7 @@ import houselist from "./components/container/houselist.vue";
 import backstage from "./components/container/backstage.vue";
 import xlogin from "./components/container/xlogin.vue";
 import xregister from "./components/container/xregister.vue";
+import detial from "./components/container/detial.vue";
 
 //back
 import xhouse from "./components/back/xhouse.vue";
@@ -30,6 +31,10 @@ var router = new VueRouter({
 	{
 		path:"/xregister",
 		component:xregister
+	},
+	{
+		path:"/detial",
+		component:detial
 	},
 	{
 		path:"/",
