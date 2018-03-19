@@ -5,5 +5,23 @@ var url = require("url");
 var multer = require ("multer");
 var querystring  = require("querystring");
 app.use(express.static('../images'));
+//连接数据库
+var connection = mysql.createConnection({
+		host:"localhost",
+		user:"liusong",
+		password:"123456",
+		database:"maphouse"
+	});
+connection.connect();
+
+app.get("/test",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    connection.query(`select * from appoint`,function(error,result){
+        if(error) throw error;
+        console.log(1);
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
 app.listen(1701);
 console.log("开启服务器");

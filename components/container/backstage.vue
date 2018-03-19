@@ -48,6 +48,7 @@
 <script>
 	import "../../css/header.css";
 	import "../../css/footer.css";
+	import $ from "jquery";
 	export default{
 		data(){
 			return{
@@ -65,6 +66,15 @@
 				}
 				
 			}
+		},
+		mounted(){
+			$.ajax({
+				type:"GET",
+				url:"http://localhost:1701/test",
+				success:function(result){
+					console.log(result);
+				}
+			})
 		}
 	}
 </script>
