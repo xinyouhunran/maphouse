@@ -21,7 +21,7 @@
 								<span v-text="i.direction"></span>
 								<span v-text="i.price"></span><span>万</span>
 							</p>
-							<p v-text="i.name"></p>
+							<p v-text="i.hname"></p>
 							<p><span>查看详情</span></p>
 						</div>
 					</a>
