@@ -13,12 +13,23 @@ var connection = mysql.createConnection({
 		database:"maphouse"
 	});
 connection.connect();
-
+//查预约
 app.get("/test",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
     connection.query(`select * from appoint`,function(error,result){
         if(error) throw error;
         console.log(1);
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+
+//加载所有房源
+app.get("/getHouse",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
         console.log(result);
         res.send(JSON.stringify(result));
     })

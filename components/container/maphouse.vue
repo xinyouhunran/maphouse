@@ -10,39 +10,23 @@
 			<option v-for="a in cityarr" v-text="a"></option>
 		</select>
 		<ul id="houselist">
-				<li>
+				<li v-for="i in house">
 					<a href="##">
-						<div class="himg"><img src="../../images/house0.jpg" alt=""></div>
+						<div class="himg"><img :src="i.picture" alt=""></div>
 						<div class="hcon">
-							<p>此房看中庭绿化，主卧室看江，精装修住家舒适</p>
+							<p v-text="i.message"></p>
 							<p>
-								<span>三室两厅</span>
-								<span>134平米</span>
-								<span>东北</span>
-								<span>120万</span>
+								<span v-text="i.guige"></span>
+								<span v-text="i.size"></span><span>平米</span>
+								<span v-text="i.direction"></span>
+								<span v-text="i.price"></span><span>万</span>
 							</p>
-							<p>华润二十四城</p>
+							<p v-text="i.name"></p>
 							<p><span>查看详情</span></p>
 						</div>
 					</a>
 				</li>
-				<li>
-					<a href="##">
-						<div class="himg"><img src="../../images/house1.jpg" alt=""></div>
-						<div class="hcon">
-							<p>此房看中庭绿化，主卧室看江，精装修住家舒适</p>
-							<p>
-								<span>三室两厅</span>
-								<span>134平米</span>
-								<span>东北</span>
-								<span>120万</span>
-							</p>
-							<p>华润二十四城</p>
-							<p><span>查看详情</span></p>
-						</div>
-					</a>
-				</li>
-				<li>
+				<!-- <li>
 					<a href="##">
 						<div class="himg"><img src="../../images/house1.jpg" alt=""></div>
 						<div class="hcon">
@@ -90,6 +74,22 @@
 						</div>
 					</a>
 				</li>
+				<li>
+					<a href="##">
+						<div class="himg"><img src="../../images/house1.jpg" alt=""></div>
+						<div class="hcon">
+							<p>此房看中庭绿化，主卧室看江，精装修住家舒适</p>
+							<p>
+								<span>三室两厅</span>
+								<span>134平米</span>
+								<span>东北</span>
+								<span>120万</span>
+							</p>
+							<p>华润二十四城</p>
+							<p><span>查看详情</span></p>
+						</div>
+					</a>
+				</li> -->
 		</ul>
 		</div>
 		<xfooter />
@@ -113,12 +113,14 @@
 				house:[],//房子信息
 				seacity:"",//搜索的城市
 				city:"重庆",//显示城市
-				cityarr:["重庆","北京","上海","天津"]//下拉菜单
+				cityarr:["重庆","北京","上海","天津"],//下拉菜单
+				data:[]//房子数据
 			}
 		},
 		methods:{
 			theLocation(){
 				var _this = this;
+				this.house = [];
 				/*var city = document.getElementById("cityName").value;*/
 				if(this.val != ""){
 					_this.map.centerAndZoom(_this.val,11);     // 用城市名设置地图中心点
@@ -127,20 +129,50 @@
 					_this.city = _this.val;
 					console.log(_this.$store.state.city);
 					/*_this.$router.push({path:"/maphouse"});*/
+					$.ajax({
+						type:"GET",
+						url:"http://localhost:1701/getHouse",
+						success:function(result){
+							if(result){
+								result = JSON.parse(result);
+								for(var j in result){
+									console.log(result[j].city,_this.seacity);
+									if(result[j].city == _this.seacity){
+										_this.house.push(result[j]);
+									}
+								}
+							}
+							console.log(_this.house);
+						}
+					})
 				}
 			},
 			changeCity(){
+				var _this = this;
+				this.house = [];
 				this.map.centerAndZoom(this.city,11);
 				this.$store.state.city = this.city;
 					this.seacity = this.city;
 					console.log(this.$store.state.city);
+				$.ajax({
+						type:"GET",
+						url:"http://localhost:1701/getHouse",
+						success:function(result){
+							if(result){
+								result = JSON.parse(result);
+								for(var j in result){
+									console.log(result[j].city,_this.seacity);
+									if(result[j].city == _this.seacity){
+										_this.house.push(result[j]);
+									}
+								}
+							}
+							console.log(_this.house);
+						}
+					})
 			}
 		},
 		mounted(){
-			$("#allmap").on("click","Button",function(e){
-					console.log(1);
-				})
-
 			var _this = this;
 			var map = new BMap.Map("allmap");  // 创建Map实例
 			this.map = map;
@@ -208,26 +240,43 @@
 	"<button>详情</button>"+
 	"</div>"]
 					];*/
-					var data = [{
-						weidu:116.417854,
-						jingdu:39.921988,
-						contents:"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>华润天城</h4>" + 
-							"<img style='float:right;margin:4px' id='imgDemo' src='../../images/house0.jpg' width='139' height='104' title='华润天城'/>" + 
-							"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...</p>" + 
-							"</div>"
-					},{
-						weidu:106.53063501,
-						jingdu:29.54460611,
-						contents:"重庆市九龙坡区石桥铺大西洋国际大厦"
-					}];
-				for(var i=0;i<data.length;i++){
-					var marker = new BMap.Marker(new BMap.Point(data[i].weidu,data[i].jingdu));  // 创建标注
-					var content = data[i].contents;
-					map.addOverlay(marker);
-					marker.setAnimation(BMAP_ANIMATION_BOUNCE);
-					addClickHandler(content,marker);
-				}
-				//添加点击事件
+					$.ajax({
+						type:"GET",
+						url:"http://localhost:1701/getHouse",
+						success:function(result){
+							if(result){
+								result = JSON.parse(result);
+								for(var j in result){
+									console.log(result[j].city,_this.seacity);
+									if(result[j].city == _this.seacity){
+										_this.house.push(result[j]);
+									}
+								}
+							}
+							console.log(_this.house);
+							for(var i in result){
+								_this.data.push({
+									weidu:result[i].latitude,
+									jingdu:result[i].longitude,
+									contents:`<h4 style='margin:0 0 5px 0;padding:0.2em 0'>${result[i].hname}</h4>
+							<img style='float:right;margin:4px' id='imgDemo' src='${result[i].picture}' width='139' height='104' title='${result[i].hname}'/>
+							<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>${result[i].message}</p>
+							</div>`
+								})
+							}
+							console.log(_this.data);
+							for(var i=0;i<_this.data.length;i++){
+								var marker = new BMap.Marker(new BMap.Point(_this.data[i].weidu,_this.data[i].jingdu));  // 创建标注
+								var content = _this.data[i].contents;
+								map.addOverlay(marker);
+								marker.setAnimation(BMAP_ANIMATION_BOUNCE);
+								addClickHandler(content,marker);
+							}
+				
+						}
+					});
+				
+					//添加点击事件
 				function addClickHandler(content,marker){
 					marker.addEventListener("click",function(e){
 						openInfo(content,e)}
@@ -240,6 +289,19 @@
 					var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象 
 					map.openInfoWindow(infoWindow,point); //开启信息窗口
 				}
+					/*var data = [{
+						weidu:116.417854,
+						jingdu:39.921988,
+						contents:"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>华润天城</h4>" + 
+							"<img style='float:right;margin:4px' id='imgDemo' src='../../images/house0.jpg' width='139' height='104' title='华润天城'/>" + 
+							"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...</p>" + 
+							"</div>"
+					},{
+						weidu:106.53063501,
+						jingdu:29.54460611,
+						contents:"重庆市九龙坡区石桥铺大西洋国际大厦"
+					}];*/
+				
 		}
 	}
 </script>
@@ -275,7 +337,7 @@ h2{margin:0.3rem 0;}
 	font-weight: 600;
 	font-size: 1rem;
 }
-#houselist li a .hcon p:nth-of-type(2) span:nth-of-type(4){
+#houselist li a .hcon p:nth-of-type(2) span:nth-of-type(5){
 	color: red;
 	margin-left: 4rem;
 }
@@ -285,5 +347,6 @@ h2{margin:0.3rem 0;}
 	text-align: center;
 	padding: 0.2rem 0.8rem;
 	display: inline-block;
+	margin-top: 0.5rem;
 }
 </style>
