@@ -26,70 +26,6 @@
 						</div>
 					</a>
 				</li>
-				<!-- <li>
-					<a href="##">
-						<div class="himg"><img src="../../images/house1.jpg" alt=""></div>
-						<div class="hcon">
-							<p>此房看中庭绿化，主卧室看江，精装修住家舒适</p>
-							<p>
-								<span>三室两厅</span>
-								<span>134平米</span>
-								<span>东北</span>
-								<span>120万</span>
-							</p>
-							<p>华润二十四城</p>
-							<p><span>查看详情</span></p>
-						</div>
-					</a>
-				</li>
-				<li>
-					<a href="##">
-						<div class="himg"><img src="../../images/house1.jpg" alt=""></div>
-						<div class="hcon">
-							<p>此房看中庭绿化，主卧室看江，精装修住家舒适</p>
-							<p>
-								<span>三室两厅</span>
-								<span>134平米</span>
-								<span>东北</span>
-								<span>120万</span>
-							</p>
-							<p>华润二十四城</p>
-							<p><span>查看详情</span></p>
-						</div>
-					</a>
-				</li>
-				<li>
-					<a href="##">
-						<div class="himg"><img src="../../images/house1.jpg" alt=""></div>
-						<div class="hcon">
-							<p>此房看中庭绿化，主卧室看江，精装修住家舒适</p>
-							<p>
-								<span>三室两厅</span>
-								<span>134平米</span>
-								<span>东北</span>
-								<span>120万</span>
-							</p>
-							<p>华润二十四城</p>
-							<p><span>查看详情</span></p>
-						</div>
-					</a>
-				</li>
-				<li>
-					<a href="##">
-						<div class="himg"><img src="../../images/house1.jpg" alt=""></div>
-						<div class="hcon">
-							<p>此房看中庭绿化，主卧室看江，精装修住家舒适</p>
-							<p>
-								<span>三室两厅</span>
-								<span>134平米</span>
-								<span>东北</span>
-								<span>120万</span>
-							</p>
-							<p>华润二十四城</p>
-							<p><span>查看详情</span></p>
-						</div>
-					</a>
-				</li> -->
 		</ul>
 		</div>
 		<xfooter />
@@ -118,6 +54,7 @@
 			}
 		},
 		methods:{
+			//搜索框值改变触发
 			theLocation(){
 				var _this = this;
 				this.house = [];
@@ -147,6 +84,7 @@
 					})
 				}
 			},
+			//下拉框改变触发
 			changeCity(){
 				var _this = this;
 				this.house = [];
@@ -223,23 +161,7 @@
 			    alert(e.message);
 			  });
 			  map.addControl(geolocationControl);  
-			  /*var point = new BMap.Point(116.404, 39.915);
-			  var marker = new BMap.Marker(point);
-			  map.addOverlay(marker);
-			  marker.setAnimation(BMAP_ANIMATION_BOUNCE);*/
-			  //创建标记点的信息
-			  /*var data_info = [[116.417854,39.921988,"地址：北京市东城区王府井大街88号乐天银泰百货八层"],
-					 [106.53063501,29.54460611,"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>天安门</h4>" + 
-	"<img style='float:right;margin:4px' id='imgDemo' src='../img/tianAnMen.jpg' width='139' height='104' title='天安门'/>" + 
-	"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...</p>" + 
-	"<button>详情</button>"+
-	"</div>"],
-					 [116.412222,39.912345,"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>天安门</h4>" + 
-	"<img style='float:right;margin:4px' id='imgDemo' src='../img/tianAnMen.jpg' width='139' height='104' title='天安门'/>" + 
-	"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...</p>" + 
-	"<button>详情</button>"+
-	"</div>"]
-					];*/
+				//添加所有房源的标注
 					$.ajax({
 						type:"GET",
 						url:"http://localhost:1701/getHouse",
@@ -289,19 +211,6 @@
 					var infoWindow = new BMap.InfoWindow(content);  // 创建信息窗口对象 
 					map.openInfoWindow(infoWindow,point); //开启信息窗口
 				}
-					/*var data = [{
-						weidu:116.417854,
-						jingdu:39.921988,
-						contents:"<h4 style='margin:0 0 5px 0;padding:0.2em 0'>华润天城</h4>" + 
-							"<img style='float:right;margin:4px' id='imgDemo' src='../../images/house0.jpg' width='139' height='104' title='华润天城'/>" + 
-							"<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...</p>" + 
-							"</div>"
-					},{
-						weidu:106.53063501,
-						jingdu:29.54460611,
-						contents:"重庆市九龙坡区石桥铺大西洋国际大厦"
-					}];*/
-				
 		}
 	}
 </script>
