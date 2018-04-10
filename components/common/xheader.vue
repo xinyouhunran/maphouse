@@ -8,7 +8,7 @@
 					<li><a href="#/maphouse">首页<span>Home</span></a></li>
 					<li><a href="#/houselist">房子<span>House</span></a></li>
 					<li><a href="##">预约<span>Premeet</span></a></li>
-					<li><a href="##">我的<span>Mine</span></a></li>
+					<li><a href="##" v-text="user">我的<span>Mine</span></a></li>
 				</ul>
 			</div>
 			<div class="nav-r">
@@ -24,12 +24,17 @@
 	export default{
 		data(){
 			return {
-
+				user:"我的"
 			}
 		},
 		methods:{
 			reindex(){
 				this.$router.push({path: "maphouse"});
+			}
+		},
+		mounted(){
+			if(sessionStorage.getItem("user")){
+				this.user = sessionStorage.getItem("user");
 			}
 		}
 	}

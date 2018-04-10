@@ -8,16 +8,16 @@
 				<div class="login-s-r">
 					<form action="" id="fo1">
 						<div>
-							<label for="">手机号</label><input type="text" id="phone"	name="phone">
+							<label for="">手机号</label><input type="text" id="phone"	name="phone" v-model="phone">
 						</div>
 						<div>
-							<label for="">密码</label><input type="password" id="pass" name="pass">
+							<label for="">密码</label><input type="password" id="pass" name="pass" v-model="password">
 						</div>
 						<div>
 							<input type="checkbox" checked="checked" class="checkb"><label for="">记住密码</label>
 						</div>
 						<div>
-							<a href="#/xlogin" id="loginbtn">登录</a>
+							<a href="#/xlogin" id="loginbtn" @click=myLogin()>登录</a>
 							<a href="#/xregister">注册会员</a>
 						</div>
 					</form>
@@ -39,6 +39,39 @@
 			xheader,
 			xfooter
 		},
+		data(){
+			return {
+				phone:"",
+				password:""
+			}
+		},
+		methods:{
+			myLogin(){
+				var _this = this;
+				console.log(_this.phone,_this.password);
+				if(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/.test(_this.phone)&&/^\w{6,}$/.test(_this.password)){
+					$.ajax({
+						type:"POST",
+						url:"http://localhost:1701/mylogin",
+						data:{
+							phone:_this.phone,
+							password:_this.password
+						},
+						success:function(result){
+							var result = JSON.parse(result);
+							console.log(result);
+							if(result.length!=0){
+								sessionStorage.setItem("user",`${result[0].tel}`);
+							}else{
+								console.log(2);
+							}
+						}
+					})
+				}else{
+					alert("手机号或密码输入错误");
+				}
+			}
+		}
 	}
 </script>
 

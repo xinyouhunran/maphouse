@@ -13,6 +13,10 @@ var connection = mysql.createConnection({
 		database:"maphouse"
 	});
 connection.connect();
+//要用req.body,需要引入此模块
+var bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //查预约
 app.get("/test",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
@@ -28,6 +32,16 @@ app.get("/test",function(req,res){
 app.get("/getHouse",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
     var str = `select * from house`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+//登录验证
+app.post("/mylogin",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from users where tel='${req.body.phone}' and password='${req.body.password}'`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
