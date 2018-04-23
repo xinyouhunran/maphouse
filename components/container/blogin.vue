@@ -1,68 +1,76 @@
 <template>
-<div class="hea">
-	<xheader />
-	<div class="session-content">
+	<div id="back">
+		<div class="nav">
+			<div class="navall">
+				<div class="nav-l">
+					<img src="../../images/logo1.jpg" class="logo">
+				</div>
+
+				<h1>欢迎进入贴心二手房后台系统</h1>
+			</div>
+		</div>
+		<div class="session-content">
 		<div class="login">
-			<p class="member">会员登录</p>
+			<p class="member">管理员登录</p>
 			<div class="login-s">
 				<div class="login-s-r">
 					<form action="" id="fo1">
 						<div>
-							<label for="">手机号</label><input type="text" id="phone"	name="phone" v-model="phone">
+							<label for="">账号</label><input type="text"  v-model="number">
 						</div>
 						<div>
 							<label for="">密码</label><input type="password" id="pass" name="pass" v-model="password">
 						</div>
 						<div>
-							<input type="checkbox" checked="checked" class="checkb"><label for="">记住密码</label>
-						</div>
-						<div>
-							<a href="#/xlogin" id="loginbtn" @click=myLogin()>登录</a>
-							<a href="#/xregister">注册会员</a>
+							<a href="#/blogin" id="loginbtn" @click="mLogin">登录</a>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<xfooter />
-</div>
-	
+		<div style="clear:both;padding-top:2rem;">
+			<div class="foot-b">
+				<p>版权所有 ©2018贴心二手房商务有限公司  保留所有权利 | 渝ICP备12042163</p>
+				<p>贴心二手房网</p>
+				<div>
+					<a href="##"><img src="../../images/gs.gif" alt=""></a>
+					<a href="##"><img src="../../images/wg.png" alt=""></a>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
-
 <script>
-	import xheader from "../common/xheader.vue";
-	import xfooter from "../common/xfooter.vue";
+	import "../../css/header.css";
+	import "../../css/footer.css";
 	import "../../css/alert.css";
 	import $ from "jquery";
 	export default{
-		components:{
-			xheader,
-			xfooter
-		},
 		data(){
-			return {
-				phone:"",
+			return{
+				number:"",
 				password:""
 			}
 		},
 		methods:{
-			myLogin(){
+			mLogin(){
 				var _this = this;
-				console.log(_this.phone,_this.password);
-				if(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/.test(_this.phone)&&/^\w{6,}$/.test(_this.password)){
+				console.log(_this.number,_this.password);
+				if(/^\d{8}$/.test(_this.number)&&/^\w{6,}$/.test(_this.password)){
 					$.ajax({
 						type:"POST",
-						url:"http://localhost:1701/mylogin",
+						url:"http://localhost:1701/blogin",
 						data:{
-							phone:_this.phone,
+							number:_this.number,
 							password:_this.password
 						},
 						success:function(result){
 							var result = JSON.parse(result);
 							console.log(result);
 							if(result.length!=0){
-								sessionStorage.setItem("user",`${result[0].tel}`);
+								sessionStorage.setItem("manager",`${result[0].mnumber}`);
+								_this.$router.push({path: "backstage"});
 							}else{
 								console.log(2);
 							}
@@ -91,11 +99,25 @@
 	              div1.remove();
 	            }
 			}
+		},
+		mounted(){
+			
 		}
 	}
 </script>
-
 <style scoped>
+.nav{
+	background-color: #64a131;
+}
+.navall h1{
+	    text-align: center;
+	    line-height: 8rem;
+	    color: #fff;
+	    float: left;
+	    margin: 0 auto;
+	    width: 70%;
+	    font-size: 4rem;
+}
 .login{
 	width: 40rem;
     margin: 0 auto;

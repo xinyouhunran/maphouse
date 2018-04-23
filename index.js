@@ -10,6 +10,7 @@ import backstage from "./components/container/backstage.vue";
 import xlogin from "./components/container/xlogin.vue";
 import xregister from "./components/container/xregister.vue";
 import detial from "./components/container/detial.vue";
+import blogin from "./components/container/blogin.vue";
 
 //back
 import xhouse from "./components/back/xhouse.vue";
@@ -39,6 +40,10 @@ var router = new VueRouter({
 	{
 		path:"/",
 		redirect:'/maphouse'
+	},
+	{
+		path:"/blogin",
+		component:blogin
 	},
 	{
 		path:"/backstage",

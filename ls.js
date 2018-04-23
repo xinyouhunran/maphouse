@@ -78,5 +78,15 @@ app.post("/detial",function(req,res){
         res.send(JSON.stringify(result));
     })
 })
+//管理员登录验证
+app.post("/blogin",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from managers where mnumber='${req.body.number}' and mpassword='${req.body.password}'`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
 app.listen(1701);
 console.log("开启服务器");

@@ -33,7 +33,9 @@
 <script>
 	import xheader from "../common/xheader.vue";
 	import xfooter from "../common/xfooter.vue";
+  import "../../css/alert.css";
 	import $ from "jquery";
+  import pool from"../../js/pool.js";
 	export default{
 		components:{
 			xheader,
@@ -62,27 +64,52 @@
                 },
                 success:function(result){
                   if(result=="1"){
-                    alert("注册成功");
+                    _this.quealert("注册成功");
                   }else{
-                    alert("用户已存在");
+                    _this.quealert("用户已存在");
                   }
                 }
               })
             }else{
-              alert("两次密码不相等");
+              _this.quealert("两次密码不相等");
             }
           }else{
-            alert("密码输入不符合要求");
+            _this.quealert("密码输入不符合要求");
           }
         }else{
-          alert("电话号码不符合要求");
+          _this.quealert("电话号码不符合要求");
         }
+      },
+      quealert(val){
+        
+            var div = document.createElement('div');
+            div.className = 'alert';  
+            var but = document.createElement('button');
+            var p = document.createElement('p');
+            p.className = 'quep';
+            p.innerHTML = val;
+            div.appendChild(p);
+            but.innerHTML = '确定';
+            but.className = 'que';
+            div.appendChild(but); 
+            var div1 = document.createElement('div');
+            div1.className = 'meng';
+            div1.appendChild(div);
+            document.body.appendChild(div1);
+            but.onclick = function(){
+              div1.remove();
+            }
+    },
+    mounted(){
+            
       }
     }
 	}
 </script>
 
 <style scoped>
+
+
 .login{
 	width: 40rem;
     margin: 0 auto;

@@ -1,6 +1,46 @@
 <template>
 <div class="hea">
 	<xheader />
+	<div class="session-content">
+		<div class="page-t">
+			<div class="page-list">
+				<h5>价格</h5>
+				<div class="page-list-r">
+					<div class="leftpart"><a href="##"><span>全部</span></a></div>
+					<div class="rightpart">
+						<a href="##"><span>从高到低</span></a>
+						<a href="##"><span>从低到高</span></a>
+						
+					</div>
+				</div>
+			</div>
+			<div class="page-list">
+				<h5>大小</h5>
+				<div class="page-list-r">
+					<div class="leftpart"><a href="##"><span>全部</span></a></div>
+					<div class="rightpart">
+						<a href="##"><span>从大到小</span></a>
+						<a href="##"><span>从小到大</span></a>
+					</div>
+				</div>
+			</div>
+			<div class="page-list">
+				<h5>规格</h5>
+				<div class="page-list-r">
+					<div class="leftpart"><a href="##"><span>全部</span></a></div>
+					<div class="rightpart">
+						<a href="##"><span>三室一厅</span></a>
+						<a href="##"><span>四室一厅</span></a>
+						<a href="##"><span>其他</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="session-content middle">
+			<ul class="list-ul middle-s">
+			</ul>
+	    </div>
+	</div>
 	<xfooter />
 </div>
 	
@@ -17,3 +57,111 @@
 		},
 	}
 </script>
+
+<style scoped>
+.yin {
+  -webkit-box-shadow: 0 2px 8px rgba(230, 230, 230, 0.75);
+  -moz-box-shadow: 0 2px 8px rgba(230, 230, 230, 0.75);
+  -ms-box-shadow: 0 2px 8px rgba(230, 230, 230, 0.75);
+  -o-box-shadow: 0 2px 8px rgba(230, 230, 230, 0.75);
+  box-shadow: 0 2px 8px rgba(230, 230, 230, 0.75);
+}
+
+.page-t {
+  padding-top: 26px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page-t .page-list {
+  width: 100%;
+  padding-bottom: 6px;
+  padding-top: 12px;
+  border-bottom: 1px solid #ccc;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.page-t .page-list:after {
+  content: "";
+  clear: both;
+  display: block;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+.page-t .page-list h5 {
+  color: #999999;
+  line-height: 24px;
+  margin-right: 20px;
+  float: left;
+  font-weight: 500;
+}
+
+.page-t .page-list .page-list-r {
+  float: left;
+  width: 1230px;
+}
+
+.page-t .page-list .page-list-r span {
+  display: inline-block;
+  font-size: 14px;
+  height: 24px;
+  padding-left: 9px;
+  padding-right: 9px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.page-t .page-list .page-list-r .leftpart {
+  width: 48px;
+  float: left;
+}
+
+.page-t .page-list .page-list-r .leftpart a {
+  float: left;
+  background: #64a131;
+}
+
+.page-t .page-list .page-list-r .leftpart a span {
+  color: #fff;
+}
+
+.page-t .page-list .page-list-r .rightpart {
+  float: left;
+  width: 1182px;
+}
+
+.page-t .page-list .page-list-r .rightpart a span {
+  color: #555;
+}
+
+.list-ul {
+  margin-top: 27px;
+}
+
+.list-ul li {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  transition: all 0.5s linear 0s;
+}
+
+.list-ul li:hover {
+  -webkit-box-shadow: 0 0 20px #A5A5A5;
+  -moz-box-shadow: 0 0 20px #A5A5A5;
+  -ms-box-shadow: 0 0 20px #A5A5A5;
+  -o-box-shadow: 0 0 20px #A5A5A5;
+  box-shadow: 0 0 20px #A5A5A5;
+}
+
+</style>

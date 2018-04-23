@@ -68,13 +68,11 @@
 			}
 		},
 		mounted(){
-			$.ajax({
-				type:"GET",
-				url:"http://localhost:1701/test",
-				success:function(result){
-					console.log(result);
-				}
-			})
+			if(sessionStorage.getItem("manager")){
+
+			}else{
+				this.$router.push({path:"../blogin"});
+			}
 		}
 	}
 </script>
