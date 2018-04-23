@@ -60,7 +60,8 @@ var router = new VueRouter({
 //配置状态
 var store = new Vuex.Store({
 	state:{
-		city:"重庆"
+		city:"重庆",
+		hid:""//记录房子id
 	}
 })
 new Vue({

@@ -8,16 +8,16 @@
 				<div class="login-s-r">
 					<form action="" id="fo2">
 						<div>
-							<label for="">手机号</label><input type="text" id="phone"	name="phone"><span class="iconerror"></span>
+							<label for="">手机号</label><input type="text" id="phone"	name="phone" v-model="tel"><span class="iconerror"></span>
 						</div>
 						<div>
-							<label for="">密码</label><input type="password" id="pass" name="pass"><span class="iconerror"></span>
+							<label for="">密码</label><input type="password" id="pass" name="pass" v-model="password"><span class="iconerror"></span>
 						</div>
 						<div>
-							<label for="">确认密码</label><input type="password" id="quepass" name="quepass"><span class="iconerror"></span>
+							<label for="">确认密码</label><input type="password" id="quepass" name="quepass" v-model="quepass"><span class="iconerror"></span>
 						</div>
 						<div>
-							<a href="#/xregister" class="regis">注册</a>
+							<a href="#/xregister" class="regis" @click="myRegister">注册</a>
 							<a href="#/xlogin">会员登录</a>
 						</div>
 					</form>
@@ -39,6 +39,46 @@
 			xheader,
 			xfooter
 		},
+    data(){
+      return {
+        tel:"",
+        password:"",
+        quepass:""
+      }
+    },
+    methods:{
+      myRegister(){
+        var _this = this;
+        console.log(_this.tel,_this.password,_this.quepass);
+        if(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/.test(_this.tel)){
+          if(/^\w{6,}$/.test(_this.password)){
+            if(_this.quepass==_this.password){
+              $.ajax({
+                type:"POST",
+                url:"http://localhost:1701/myRegister",
+                data:{
+                  phone:_this.tel,
+                  password:_this.password
+                },
+                success:function(result){
+                  if(result=="1"){
+                    alert("注册成功");
+                  }else{
+                    alert("用户已存在");
+                  }
+                }
+              })
+            }else{
+              alert("两次密码不相等");
+            }
+          }else{
+            alert("密码输入不符合要求");
+          }
+        }else{
+          alert("电话号码不符合要求");
+        }
+      }
+    }
 	}
 </script>
 

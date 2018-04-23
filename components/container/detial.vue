@@ -1,7 +1,7 @@
 <template>
 <div class="hea">
 	<xheader />
-	<div class="session-content intro">
+	<div class="session-content intro" v-for="i in house">
 		<div class="intro-head">
 			<strong><a href="fruit.html">首页</a></strong>
 			<span>><a href="##">房子</a>></span>
@@ -9,13 +9,10 @@
 		</div>
 		<div class="intro-m">
 			<div class="intro-m-l">
-				<ul class="sul">
-					<!-- <li><img src="../imgs/sapple.jpg" alt=""></li>
-					<li><img src="../imgs/sapple1.jpg" alt=""></li> -->
-				</ul>
 				<ul class="bul">
 					<!-- <img src="../imgs/sapple.jpg" alt=""> -->
 					<!-- <img src="" alt=""> -->
+          <img :src="i.picture" alt="">
 				</ul>
 			</div>
 			<div class="intro-m-r">
@@ -25,35 +22,27 @@
 				</div>
 				<div class="intro-m-r-b">
 					<div class="money">
-						<div class="money-l"><h5>房价</h5><span class="myprice"></span></div>
+						<div class="money-l"><h5>房价</h5><span class="myprice" v-text="i.price"></span><span>万</span></div>
 					</div>
 					<div class="guige">
 						<h5>规格</h5>
-						<span class="myguige"></span>
+						<span class="myguige" v-text="i.guige"></span>
 					</div>
 					<div class="number">
-						<h5>数量</h5>
-						<div class="number-l"><span id="reduce">-</span>
-						<input type="text" value="1" disabled="disabled" id="numtxt"><span id="add">+</span>
-						</div>
+						<h5>大小</h5>
+						<span v-text="i.size"></span><span>平米</span>
 					</div>
 					<div class="abut">
-						<div class="buy"><a href="shop.html">立即购买</a></div>
-						<div class="shopbtn1"><a href="##">加入购物车</a></div>
+						<div class="buy"><a href="##">预约</a></div>
 					</div>
-				</div>
-				<div class="zhushi">
-					<div><h5>产地</h5><span class="myaddress"></span></div>
-					<div><h5>存储方法</h5><span class="mymethod"></span></div>
-					<div><h5>备注</h5><span class="mymessage"></span></div>
 				</div>
 			</div>
 		</div>
 		<div class="intro-b">
 			<div class="intro-b-l">
-				<div class="intro-b-l-h"><span>商品简介</span></div>
+				<div class="intro-b-l-h"><span>房屋简介</span></div>
 				<div class="mybimg">
-					<!-- <img src="" alt=""> -->
+					<p v-text="i.message"></p>
 				</div>
 			</div>
 			<div class="intro-b-r">
@@ -81,6 +70,30 @@
 			xheader,
 			xfooter
 		},
+    data(){
+      return {
+        house:[]
+      }
+    },
+    mounted(){
+      var _this = this;
+      if(this.$store.state.hid!=""){
+          $.ajax({
+          url:"http://localhost:1701/detial",
+          type:"post",
+          data:{
+            hid:_this.$store.state.hid
+          },
+          success:function(data){
+            data = JSON.parse(data);
+            console.log(data);
+            _this.house = data;
+          }
+        })
+      }else{
+        this.$router.push({path: "maphouse"});
+      }    
+    }
 	}
 </script>
 
@@ -119,7 +132,7 @@
 .intro .intro-m .intro-m-l {
   float: left;
   width: 55%;
-  height: 560px;
+  height: 30rem;
   position: relative;
   overflow: hidden;
   -webkit-box-sizing: border-box;
@@ -155,8 +168,8 @@
 
 .intro .intro-m .intro-m-l .bul {
   float: left;
-  width: 560px;
-  height: 560px;
+  width: 30rem;
+  height: 30rem;
   cursor: pointer;
 }
 
@@ -416,11 +429,14 @@
 
 .intro .intro-b .intro-b-l .mybimg {
   width: 1000px;
+  padding: 2rem;
 }
 
-.intro .intro-b .intro-b-l .mybimg img {
-  width: 100%;
-  height: 100%;
+.intro .intro-b .intro-b-l .mybimg p {
+  text-align: center;
+  font-size: 3rem;
+  line-height: 2rem;
+  color: #64a131;
 }
 
 .intro .intro-b .intro-b-r {

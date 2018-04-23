@@ -11,7 +11,7 @@
 		</select>
 		<ul id="houselist">
 				<li v-for="i in house">
-					<a href="##">
+					<a href="#/detial" @click="giveHid(i.hid)" >
 						<div class="himg"><img :src="i.picture" alt=""></div>
 						<div class="hcon">
 							<p v-text="i.message"></p>
@@ -50,10 +50,16 @@
 				seacity:"",//搜索的城市
 				city:"重庆",//显示城市
 				cityarr:["重庆","北京","上海","天津"],//下拉菜单
-				data:[]//房子数据
+				data:[],//房子数据
+				
 			}
 		},
 		methods:{
+			//点击房子列表时触发
+			giveHid(id){
+				this.$store.state.hid = id;
+				console.log(this.$store.state.hid);
+			},
 			//搜索框值改变触发
 			theLocation(){
 				var _this = this;
