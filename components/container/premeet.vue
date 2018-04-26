@@ -278,7 +278,7 @@
 
 .carw .car-m .car-m-list ul li div img {
   width: 100%;
-  height: 100%;
+  height: 110px;
 }
 
 .carw .car-m .car-m-list ul li div p {
