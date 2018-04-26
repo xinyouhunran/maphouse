@@ -38,6 +38,76 @@ app.get("/getHouse",function(req,res){
         res.send(JSON.stringify(result));
     })
 })
+//加载所有房源,价格从高到低
+app.get("/priceHigh",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house order by price desc`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+//加载所有房源,价格从低到高
+app.get("/priceLow",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house order by price asc`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+//加载所有房源,大小从大到小
+app.get("/sizeHigh",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house order by size desc`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+//加载所有房源,大小从小到大
+app.get("/sizeLow",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house order by price asc`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+//三室一厅
+app.get("/threeone",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house where guige="三室一厅"`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+//四室一厅
+app.get("/fourone",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house where guige="四室一厅"`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+//其他规格
+app.get("/others",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house where guige!="三室一厅" and guige!="四室一厅"`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
 //登录验证
 app.post("/mylogin",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
@@ -55,18 +125,18 @@ app.post("/myRegister",function(req,res){
     connection.query(str1,function(error,result){
         if(error) throw error;
         console.log(result);
-        if(result==[]){
-           var str = `insert into users(tel,password) values ('${req.body.phone}','${req.body.password}')`;
-            connection.query(str,function(error,result){
-                if(error) throw error;
-                console.log("执行");
-                res.send("1");
-            }) 
-        }else{
-            res.send("0");
-        }
+        res.send(JSON.stringify(result));
     })
     
+})
+app.post("/register",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `insert into users(tel,password) values ('${req.body.phone}','${req.body.password}')`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log("执行");
+        res.send("1");
+    })
 })
 //详情页加载
 app.post("/detial",function(req,res){
@@ -87,6 +157,46 @@ app.post("/blogin",function(req,res){
         console.log(result);
         res.send(JSON.stringify(result));
     })
+})
+//预约
+app.post("/premeet",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str1 = `select * from appoint where hid=${req.body.hid} and userid=${req.body.userid}`;
+    connection.query(str1,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+app.post("/mypremeet",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `insert into appoint(hid,userid) values (${req.body.hid},${req.body.userid})`;
+            connection.query(str,function(error,result1){
+                if(error) throw error;
+                console.log("执行");
+                res.send("1");
+            }) 
+})
+//查看预约消息
+app.post("/premessage",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from appoint where userid = ${req.body.userid}`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send(JSON.stringify(result)); 
+    })
+    
+})
+app.post("/mypremessage",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from appoint,house where appoint.userid = ${req.body.userid} and appoint.hid=house.hid`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send(JSON.stringify(result)); 
+    })
+    
 })
 app.listen(1701);
 console.log("开启服务器");

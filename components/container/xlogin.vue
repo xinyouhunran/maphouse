@@ -35,6 +35,7 @@
 	import xfooter from "../common/xfooter.vue";
 	import "../../css/alert.css";
 	import $ from "jquery";
+	
 	export default{
 		components:{
 			xheader,
@@ -63,8 +64,11 @@
 							console.log(result);
 							if(result.length!=0){
 								sessionStorage.setItem("user",`${result[0].tel}`);
+								_this.$store.state.userid = result[0].userid;
+								_this.quealert("你已登录成功");
+								_this.$router.push({path:"maphouse"});
 							}else{
-								console.log(2);
+								_this.quealert("登录失败");
 							}
 						}
 					})

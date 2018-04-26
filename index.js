@@ -11,6 +11,7 @@ import xlogin from "./components/container/xlogin.vue";
 import xregister from "./components/container/xregister.vue";
 import detial from "./components/container/detial.vue";
 import blogin from "./components/container/blogin.vue";
+import premeet from "./components/container/premeet.vue";
 
 //back
 import xhouse from "./components/back/xhouse.vue";
@@ -46,6 +47,10 @@ var router = new VueRouter({
 		component:blogin
 	},
 	{
+		path:"/premeet",
+		component:premeet
+	},
+	{
 		path:"/backstage",
 		component:backstage,
 		children:[{
@@ -66,7 +71,8 @@ var router = new VueRouter({
 var store = new Vuex.Store({
 	state:{
 		city:"重庆",
-		hid:""//记录房子id
+		hid:0,//记录房子id
+		userid:0,//记录已登录用户的id
 	}
 })
 new Vue({

@@ -8,8 +8,8 @@
 				<div class="page-list-r">
 					<div class="leftpart"><a href="##"><span>全部</span></a></div>
 					<div class="rightpart">
-						<a href="##"><span>从高到低</span></a>
-						<a href="##"><span>从低到高</span></a>
+						<a href="#/houselist" @click="priceHigh"><span>从高到低</span></a>
+						<a href="#/houselist" @click="priceLow"><span>从低到高</span></a>
 						
 					</div>
 				</div>
@@ -19,8 +19,8 @@
 				<div class="page-list-r">
 					<div class="leftpart"><a href="##"><span>全部</span></a></div>
 					<div class="rightpart">
-						<a href="##"><span>从大到小</span></a>
-						<a href="##"><span>从小到大</span></a>
+						<a href="#/houselist" @click="sizeHigh"><span>从大到小</span></a>
+						<a href="#/houselist" @click="sizeLow"><span>从小到大</span></a>
 					</div>
 				</div>
 			</div>
@@ -29,15 +29,31 @@
 				<div class="page-list-r">
 					<div class="leftpart"><a href="##"><span>全部</span></a></div>
 					<div class="rightpart">
-						<a href="##"><span>三室一厅</span></a>
-						<a href="##"><span>四室一厅</span></a>
-						<a href="##"><span>其他</span></a>
+						<a href="#/houselist" @click="threeone"><span>三室一厅</span></a>
+						<a href="#/houselist" @click="fourone"><span>四室一厅</span></a>
+						<a href="##" @click="others"><span>其他</span></a>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="session-content middle">
 			<ul class="list-ul middle-s">
+          <li v-for="i in house">
+          <a href="#/detial" @click="giveHid(i.hid)" >
+            <div class="himg"><img :src="i.picture" alt=""></div>
+            <div class="hcon">
+              <p v-text="i.message"></p>
+              <p>
+                <span v-text="i.guige"></span>
+                <span v-text="i.size"></span><span>平米</span>
+                <span v-text="i.direction"></span>
+                <span v-text="i.price"></span><span>万</span>
+              </p>
+              <p v-text="i.hname"></p>
+              <p><span>查看详情</span></p>
+            </div>
+          </a>
+        </li>
 			</ul>
 	    </div>
 	</div>
@@ -49,12 +65,184 @@
 <script>
 	import xheader from "../common/xheader.vue";
 	import xfooter from "../common/xfooter.vue";
+  import "../../css/alert.css";
 	import $ from "jquery";
 	export default{
 		components:{
 			xheader,
 			xfooter
 		},
+    data(){
+      return {
+        house:[]
+      }
+    },
+    methods:{
+      giveHid(id){
+        this.$store.state.hid = id;
+        console.log(this.$store.state.hid);
+      },
+      priceHigh(){
+        var _this = this;
+        this.house = [];
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:1701/priceHigh",
+            success:function(result){
+              if(result){
+                result = JSON.parse(result);
+                for(var j in result){
+                    _this.house.push(result[j]);
+                }
+              }
+              console.log(_this.house);
+            }
+          })
+      },
+      priceLow(){
+        var _this = this;
+        this.house = [];
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:1701/priceLow",
+            success:function(result){
+              if(result){
+                result = JSON.parse(result);
+                for(var j in result){
+                    _this.house.push(result[j]);
+                }
+              }
+              console.log(_this.house);
+            }
+          })
+      },
+      sizeHigh(){
+        var _this = this;
+        this.house = [];
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:1701/sizeHigh",
+            success:function(result){
+              if(result){
+                result = JSON.parse(result);
+                for(var j in result){
+                    _this.house.push(result[j]);
+                }
+              }
+              console.log(_this.house);
+            }
+          })
+      },
+      sizeLow(){
+        var _this = this;
+        this.house = [];
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:1701/sizeLow",
+            success:function(result){
+              if(result){
+                result = JSON.parse(result);
+                for(var j in result){
+                    _this.house.push(result[j]);
+                }
+              }
+              console.log(_this.house);
+            }
+          })
+      },
+      threeone(){
+        var _this = this;
+        this.house = [];
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:1701/threeone",
+            success:function(result){
+              if(result){
+                result = JSON.parse(result);
+                for(var j in result){
+                    _this.house.push(result[j]);
+                }
+              }else{
+                _this.quealert("不存在");
+              }
+              console.log(_this.house);
+            }
+          })
+      },
+      fourone(){
+        var _this = this;
+        this.house = [];
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:1701/fourone",
+            success:function(result){
+              if(result){
+                result = JSON.parse(result);
+                for(var j in result){
+                    _this.house.push(result[j]);
+                }
+              }else{
+                _this.quealert("不存在");
+              }
+              console.log(_this.house);
+            }
+          })
+      },
+      others(){
+        var _this = this;
+        this.house = [];
+        $.ajax({
+            type:"GET",
+            url:"http://localhost:1701/others",
+            success:function(result){
+              if(result){
+                result = JSON.parse(result);
+                for(var j in result){
+                    _this.house.push(result[j]);
+                }
+              }else{
+                _this.quealert("不存在");
+              }
+              console.log(_this.house);
+            }
+          })
+      },
+      quealert(val){
+        var div = document.createElement('div');
+              div.className = 'alert';  
+              var but = document.createElement('button');
+              var p = document.createElement('p');
+              p.className = 'quep';
+              p.innerHTML = val;
+              div.appendChild(p);
+              but.innerHTML = '确定';
+              but.className = 'que';
+              div.appendChild(but); 
+              var div1 = document.createElement('div');
+              div1.className = 'meng';
+              div1.appendChild(div);
+              document.body.appendChild(div1);
+              but.onclick = function(){
+                div1.remove();
+              }
+      }
+    },
+    mounted(){
+      var _this = this;
+      $.ajax({
+            type:"GET",
+            url:"http://localhost:1701/getHouse",
+            success:function(result){
+              if(result){
+                result = JSON.parse(result);
+                for(var j in result){
+                    _this.house.push(result[j]);
+                }
+              }
+              console.log(_this.house);
+            }
+          })
+    }
 	}
 </script>
 
@@ -163,5 +351,48 @@
   -o-box-shadow: 0 0 20px #A5A5A5;
   box-shadow: 0 0 20px #A5A5A5;
 }
-
+.list-ul{overflow: hidden;}
+.list-ul li{
+  border-bottom: 1px solid #ddd;
+  float: left;
+  width: 33.33%;
+}
+.list-ul li a{
+  display: block;
+    width: 26rem;
+    padding: 1rem 1rem;
+    position: relative;
+    color: #aaa;
+}
+.list-ul li a:after{content:"";clear:both;display:block;height:0;overflow: hidden;visibility: hidden;}
+.list-ul li a{zoom:1;}
+.list-ul li a .himg{
+  float: left;
+  margin-right: 1rem;
+}
+.list-ul li a .himg img{
+  width: 6.5rem;
+  height: 7.5rem;
+}
+.list-ul li a .hcon{
+  float: left;
+  width: 18rem;
+}
+.list-ul li a .hcon p:nth-of-type(1){
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.list-ul li a .hcon p:nth-of-type(2) span:nth-of-type(5){
+  color: red;
+  margin-left: 4rem;
+}
+.list-ul li a .hcon p:nth-of-type(4) span{
+  color: #64a131;
+  border: 1px solid #64a131;
+  text-align: center;
+  padding: 0.2rem 0.8rem;
+  display: inline-block;
+  margin-top: 0.5rem;
+}
 </style>

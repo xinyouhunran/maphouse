@@ -33,7 +33,7 @@
 						<span v-text="i.size"></span><span>平米</span>
 					</div>
 					<div class="abut">
-						<div class="buy"><a href="##">预约</a></div>
+						<div class="buy"><a href="#/detial" @click="premeet">预约</a></div>
 					</div>
 				</div>
 			</div>
@@ -64,6 +64,7 @@
 <script>
 	import xheader from "../common/xheader.vue";
 	import xfooter from "../common/xfooter.vue";
+  import "../../css/alert.css";
 	import $ from "jquery";
 	export default{
 		components:{
@@ -75,9 +76,66 @@
         house:[]
       }
     },
+    methods:{
+      premeet(){
+        var _this = this;
+        if(sessionStorage.getItem("user")){
+          console.log(_this.$store.state.userid,_this.$store.state.hid);
+          $.ajax({
+            type:"post",
+            url:"http://localhost:1701/premeet",
+            data:{
+              userid:_this.$store.state.userid,
+              hid:_this.$store.state.hid
+            },
+            success:function(data){
+              data = JSON.parse(data);
+              if(data.length==0){
+                $.ajax({
+                  type:"post",
+                  url:"http://localhost:1701/mypremeet",
+                  data:{
+                    userid:_this.$store.state.userid,
+                    hid:_this.$store.state.hid
+                  },
+                  success:function(data){
+                    if(data=="1"){
+                      _this.quealert("预约成功");
+                    }
+                  }
+                })
+              }else{
+                _this.quealert("此房子您已经预约过了");
+              }
+            }
+          })
+        }else{
+          _this.quealert("您尚未登录，请登录后再预约");
+        }
+      },
+      quealert(val){
+        var div = document.createElement('div');
+              div.className = 'alert';  
+              var but = document.createElement('button');
+              var p = document.createElement('p');
+              p.className = 'quep';
+              p.innerHTML = val;
+              div.appendChild(p);
+              but.innerHTML = '确定';
+              but.className = 'que';
+              div.appendChild(but); 
+              var div1 = document.createElement('div');
+              div1.className = 'meng';
+              div1.appendChild(div);
+              document.body.appendChild(div1);
+              but.onclick = function(){
+                div1.remove();
+              }
+      }
+    },
     mounted(){
       var _this = this;
-      if(this.$store.state.hid!=""){
+      if(this.$store.state.hid!=0){
           $.ajax({
           url:"http://localhost:1701/detial",
           type:"post",

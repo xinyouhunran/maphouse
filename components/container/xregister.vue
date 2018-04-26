@@ -63,8 +63,23 @@
                   password:_this.password
                 },
                 success:function(result){
-                  if(result=="1"){
-                    _this.quealert("注册成功");
+                  result = JSON.parse(result);
+                  console.log(result);
+                  if(result.length==0){
+                    $.ajax({
+                      type:"post",
+                      url:"http://localhost:1701/register",
+                      data:{
+                        phone:_this.tel,
+                        password:_this.password
+                      },
+                      success:function(data){
+                        if(data=="1"){
+                          _this.quealert("注册成功");
+                        }
+                        
+                      }
+                    })
                   }else{
                     _this.quealert("用户已存在");
                   }
