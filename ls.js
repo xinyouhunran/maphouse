@@ -190,13 +190,23 @@ app.post("/premessage",function(req,res){
 })
 app.post("/mypremessage",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from appoint,house where appoint.userid = ${req.body.userid} and appoint.hid=house.hid`;
+    var str = `select * from appoint,house,users where appoint.userid = ${req.body.userid} and appoint.hid=house.hid and house.userid=users.userid`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
        res.send(JSON.stringify(result)); 
     })
     
+})
+//删除预约
+app.post("/delpre",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `delete from appoint where hid=${req.body.hid} and userid=${req.body.userid}`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send("1"); 
+    })
 })
 app.listen(1701);
 console.log("开启服务器");

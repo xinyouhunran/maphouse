@@ -13,7 +13,7 @@
 				<div class="car-m-t">
 					<div></div>
 					<div><span>房子</span></div>
-					<div><span>大小(平米)</span></div>
+					<div><span>房主电话</span></div>
 					<div><span>单价(万元)</span></div>
 					<div><span>规格</span></div>
 					<div><span>城市</span></div>
@@ -23,17 +23,17 @@
 					<ul id="shoplist">
 						<li v-for="i in appoint">
 							<div></div>
-							<div><a href="#/detial"><img :src="i.picture" alt=""></a></div>
+							<div><a href="#/detial" @click="giveHid(i.hid)"><img :src="i.picture" alt=""></a></div>
 							<div>
 								<p><a href="##" v-text="i.hname"></a></p>
 							</div>
 							<div>
-								<p v-text="i.size"></p>
+								<p v-text="i.tel"></p>
 							</div>
 							<div><p v-text="i.price"></p></div>
 							<div><p v-text="i.guige"></p></div>
 							<div><p v-text="i.city"></p></div>
-							<div><p>删除</p></div>
+							<div><p @click="delpre(i.hid)" class="del">删除</p></div>
 						</li>
 					</ul>
 				</div>
@@ -69,6 +69,27 @@
 			}
 		},
 		methods:{
+      giveHid(id){
+        this.$store.state.hid = id;
+        console.log(this.$store.state.hid);
+      },
+      delpre(id){
+        var _this = this;
+        $.ajax({
+          type:"post",
+          url:"http://localhost:1701/delpre",
+          data:{
+            hid:id,
+            userid:_this.$store.state.userid
+          },
+          success:function(data){
+            if(data=="1"){
+              _this.quealert("删除成功");
+              
+            }  
+          }
+        })
+      },
 			quealert(val){
 				var div = document.createElement('div');
 	            div.className = 'alert';  
@@ -90,6 +111,9 @@
 			}
 		},
 		mounted(){
+      $("#shoplist").on("click",".del",function(){
+        $(this).parent().parent().remove();
+      })
 			var _this = this;
 			if(sessionStorage.getItem("user")){
 				$.ajax({
