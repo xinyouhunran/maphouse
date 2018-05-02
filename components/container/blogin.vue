@@ -77,7 +77,7 @@
 						}
 					})
 				}else{
-					_this.quealert("手机号或密码输入错误");
+					_this.quealert("账号或密码输入错误");
 				}
 			},
 			quealert(val){

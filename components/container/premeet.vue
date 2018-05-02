@@ -137,6 +137,7 @@
 									data = JSON.parse(data);
 									console.log(data);
 									for(var j in data){
+                              data[j].flag = true;
 					                    _this.appoint.push(data[j]);
 					                }
 					                console.log(_this.appoint);

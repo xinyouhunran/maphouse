@@ -14,9 +14,8 @@
 				<li>
 					<h2 @click="changeNum(1)">房子</h2>
 					<div class="housenav" v-show="num==1">
-						<a href="#/backstage/xuser">增加房源</a>
-						<a href="">删除房源</a>
-						<a href="">查询房源</a>
+						<a href="#/backstage/xhouse">展示房源</a>
+						<a href="#/backstage/xuser">删除房源</a>
 						<a href="">修改房源</a>
 					</div>
 				</li>
@@ -26,6 +25,14 @@
 						<a href="">查询用户</a>
 						<a href="">删除用户</a>
 						<a href="">修改用户</a>
+					</div>
+				</li>
+				<li>
+					<h2 @click="changeNum(3)">管理员</h2>
+					<div class="usernav" v-show="num==3">
+						<a href="">查询管理员</a>
+						<a href="">添加管理员</a>
+						<a href="">删除管理员</a>
 					</div>
 				</li>
 			</ul>
@@ -60,8 +67,9 @@
 				this.num = num;
 				if(num==2){
 					this.$router.push({path: "xuser"});
-				}
-				else{
+				}else if(num==3){
+					this.$router.push({path: "xmanager"});
+				}else{
 					this.$router.push({path: "xhouse"});
 				}
 				
@@ -130,5 +138,6 @@
 	height: 34rem;
 	background-color: #64a131;
 	color: #fff;
+	overflow-y: auto;
 }
 </style>

@@ -16,6 +16,7 @@ import premeet from "./components/container/premeet.vue";
 //back
 import xhouse from "./components/back/xhouse.vue";
 import xuser from "./components/back/xuser.vue";
+import xmanager from "./components/back/xmanager.vue";
 Vue.use(Vuex);
 //配置路由
 var router = new VueRouter({
@@ -60,6 +61,9 @@ var router = new VueRouter({
 		{
 			path:"xuser",
 			component:xuser
+		},{
+			path:"xmanager",
+			component:xmanager
 		},
 		{
 			path:"/backstage",

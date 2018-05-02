@@ -71,7 +71,7 @@ app.get("/sizeHigh",function(req,res){
 //加载所有房源,大小从小到大
 app.get("/sizeLow",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house order by price asc`;
+    var str = `select * from house order by size asc`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -207,6 +207,17 @@ app.post("/delpre",function(req,res){
         console.log(result);
        res.send("1"); 
     })
+})
+//根据房名查找房源
+app.post("/findhname",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house where hname like '%${req.body.hname}%'`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send(JSON.stringify(result)); 
+    })
+    
 })
 app.listen(1701);
 console.log("开启服务器");
