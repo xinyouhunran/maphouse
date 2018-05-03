@@ -81,6 +81,12 @@ module.exports = {
     devServer: {
         contentBase: "./public",
         inline: true, //自动刷新
-        port: 12345
+        port: 12345,
+        proxy:{
+            '/api':{
+                target:"http://localhost:1701",
+                changeOrigin:true
+            }
+        }
     }
 };

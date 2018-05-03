@@ -48,8 +48,12 @@
 					data:{
 						hid:id
 					},
-					success:function(data){
-
+					success:(data)=>{
+						if(data=="1"){
+							this.house = this.house.filter((val)=>{
+								return val.hid!=id;
+							})
+						}
 					}
 				})
 			},

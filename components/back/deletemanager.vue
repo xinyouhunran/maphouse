@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<!-- <button @click="a">dasda</button> -->
 		<form action="">
 			<div>
 				<label for="">您可以根据账号查询:</label><input type="text"  v-model="mnumber">
@@ -35,6 +36,17 @@
 			}
 		},
 		methods:{
+			/*a(){
+				fetch("/api",{
+					method:"post"
+					body:{}//post请求的数据
+					headers:{"content-type":"application/x-www-form-urlencoded"}
+				}).then(function(e){
+					return e.text();
+				}).then((e)=>{
+					console.log(e);	
+				});	
+			},*/
 			del(id){
 				$.ajax({
 					type:"post",

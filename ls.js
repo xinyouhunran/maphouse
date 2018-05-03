@@ -4,7 +4,9 @@ var mysql = require("mysql");
 var url = require("url");
 var multer = require ("multer");
 var querystring  = require("querystring");
+var test=require("./test/test.js");
 app.use(express.static('../images'));
+app.use("/api",test);
 //连接数据库
 var connection = mysql.createConnection({
 		host:"localhost",
