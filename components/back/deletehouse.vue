@@ -9,7 +9,7 @@
 		<table>
 			<thead>
 				<tr>
-					<th>序号</th><th>名称</th><th>大小</th><th>城市</th><th>经度</th><th>纬度</th><th>规格</th><th>价格</th><th>信息</th><th>图片</th>
+					<th>序号</th><th>名称</th><th>大小</th><th>城市</th><th>经度</th><th>纬度</th><th>规格</th><th>价格</th><th>信息</th><th>图片</th><th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,22 +24,35 @@
 					<td v-text="i.price"></td>
 					<td v-text="i.message"></td>
 					<td><img :src="i.picture" alt=""></td>
+					<td @click="del(i.hid)">删除</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </template>
+
 <script>
 	import $ from "jquery";
-	import "../../css/alert.css";
 	export default{
 		data(){
-			return {
+			return{
 				house:[],
 				hname:""
 			}
 		},
 		methods:{
+			del(id){
+				$.ajax({
+					type:"post",
+					url:"http://localhost:1701/delhouse",
+					data:{
+						hid:id
+					},
+					success:function(data){
+
+					}
+				})
+			},
 			findhname(){
 				var _this = this;
 				if(this.hname!=""){
@@ -54,6 +67,7 @@
 							if(data.length!=0){
 								_this.house = [];
 								for(var i in data){
+									
 									_this.house.push(data[i]);
 								}
 							}else{
@@ -99,7 +113,6 @@
 			})
 		}
 	}
-
 </script>
 
 <style scoped>
@@ -138,15 +151,15 @@ table thead tr th{
 	padding: 2rem;
 	border: 1px solid #fff;
 }
-table thead tr th:last-of-type{
-	width:9rem;
+table thead tr th:nth-of-type(10){
+	width:8rem;
 }
 table tbody tr td{
 	text-align: center;
-	border: 1px solid #fff;
+	border:1px solid #fff;
 }
 table tbody tr td img{
-	width: 6rem;
-	height: 6rem;
-}
+	width: 4rem;
+	height: 4rem;
+}	
 </style>

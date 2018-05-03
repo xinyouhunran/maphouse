@@ -17,6 +17,8 @@ import premeet from "./components/container/premeet.vue";
 import xhouse from "./components/back/xhouse.vue";
 import xuser from "./components/back/xuser.vue";
 import xmanager from "./components/back/xmanager.vue";
+import deletehouse from "./components/back/deletehouse.vue";
+import deletemanager from "./components/back/deletemanager.vue";
 Vue.use(Vuex);
 //配置路由
 var router = new VueRouter({
@@ -64,6 +66,12 @@ var router = new VueRouter({
 		},{
 			path:"xmanager",
 			component:xmanager
+		},{
+			path:"deletehouse",
+			component:deletehouse
+		},{
+			path:"deletemanager",
+			component:deletemanager
 		},
 		{
 			path:"/backstage",

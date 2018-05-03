@@ -219,5 +219,46 @@ app.post("/findhname",function(req,res){
     })
     
 })
+//删除房子
+app.post("/delhouse",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `delete from house where hid=${req.body.hid}`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send("1"); 
+    })
+})
+//查找所有管理员
+app.get("/getManager",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from managers`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+        res.send(JSON.stringify(result));
+    })
+})
+//根据账号查找管理员
+app.post("/findmnumber",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from managers where mnumber = '${req.body.mnumber}'`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send(JSON.stringify(result)); 
+    })
+    
+})
+//删除管理员
+app.post("/delmanager",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `delete from managers where mid=${req.body.mid}`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send("1"); 
+    })
+})
 app.listen(1701);
 console.log("开启服务器");

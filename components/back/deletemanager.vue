@@ -2,67 +2,79 @@
 	<div>
 		<form action="">
 			<div>
-				<label for="">您可以根据名称查询:</label><input type="text"  v-model="hname">
-				<button type="button" @click="findhname">查询</button>
+				<label for="">您可以根据账号查询:</label><input type="text"  v-model="mnumber">
+				<button type="button" @click="findmnumber">查询</button>
 			</div>
 		</form>
 		<table>
 			<thead>
 				<tr>
-					<th>序号</th><th>名称</th><th>大小</th><th>城市</th><th>经度</th><th>纬度</th><th>规格</th><th>价格</th><th>信息</th><th>图片</th>
+					<th>序号</th><th>账号</th><th>密码</th><th>状态</th><th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="i in house">
-					<td v-text="i.hid"></td>
-					<td v-text="i.hname"></td>
-					<td v-text="i.size"></td>
-					<td v-text="i.city"></td>
-					<td v-text="i.longitude"></td>
-					<td v-text="i.latitude"></td>
-					<td v-text="i.guige"></td>
-					<td v-text="i.price"></td>
-					<td v-text="i.message"></td>
-					<td><img :src="i.picture" alt=""></td>
+				<tr v-for="i in manager">
+					<td v-text="i.mid"></td>
+					<td v-text="i.mnumber"></td>
+					<td v-text="i.mpassword"></td>
+					<td v-text="i.state"></td>
+					<td @click="del(i.mid)" style="cursor:pointer">删除</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 </template>
+
 <script>
 	import $ from "jquery";
-	import "../../css/alert.css";
 	export default{
 		data(){
-			return {
-				house:[],
-				hname:""
+			return{
+				manager:[],
+				mnumber:""
 			}
 		},
 		methods:{
-			findhname(){
+			del(id){
+				$.ajax({
+					type:"post",
+					url:"http://localhost:1701/delmanager",
+					data:{
+						mid:id
+					},
+					success:(data)=>{
+						if(data=="1"){
+							this.manager=this.manager.filter((val)=>{
+								return val.mid!=id;	
+							});
+						}
+					}
+				})
+			},
+			findmnumber(){
 				var _this = this;
-				if(this.hname!=""){
+				if(this.mnumber!=""){
 					$.ajax({
 						type:"post",
-						url:"http://localhost:1701/findhname",
+						url:"http://localhost:1701/findmnumber",
 						data:{
-							hname:_this.hname
+							mnumber:_this.mnumber
 						},
 						success:function(data){
 							data = JSON.parse(data);
 							if(data.length!=0){
-								_this.house = [];
+								_this.manager = [];
 								for(var i in data){
-									_this.house.push(data[i]);
+									
+									_this.manager.push(data[i]);
 								}
 							}else{
-								_this.quealert("没有您所查找的房源信息");
+								_this.quealert("没有您所查找的管理员信息");
 							}
 						}
 					})
 				}else{
-					this.quealert("名称不能为空");
+					this.quealert("账号不能为空");
 				}
 			},
 			quealert(val){
@@ -89,17 +101,16 @@
 			var _this = this;
 			$.ajax({
 				type:"get",
-				url:"http://localhost:1701/getHouse",
+				url:"http://localhost:1701/getManager",
 				success:function(data){
 					data = JSON.parse(data);
 					for(var i in data){
-						_this.house.push(data[i]);
+						_this.manager.push(data[i]);
 					}
 				}
 			})
 		}
 	}
-
 </script>
 
 <style scoped>
@@ -138,15 +149,15 @@ table thead tr th{
 	padding: 2rem;
 	border: 1px solid #fff;
 }
-table thead tr th:last-of-type{
-	width:9rem;
+table thead tr th:nth-of-type(10){
+	width:8rem;
 }
 table tbody tr td{
 	text-align: center;
-	border: 1px solid #fff;
+	border:1px solid #fff;
 }
 table tbody tr td img{
-	width: 6rem;
-	height: 6rem;
-}
+	width: 4rem;
+	height: 4rem;
+}	
 </style>

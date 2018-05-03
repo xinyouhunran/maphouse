@@ -15,7 +15,7 @@
 					<h2 @click="changeNum(1)">房子</h2>
 					<div class="housenav" v-show="num==1">
 						<a href="#/backstage/xhouse">展示房源</a>
-						<a href="#/backstage/xuser">删除房源</a>
+						<a href="#/backstage/deletehouse">删除房源</a>
 						<a href="">修改房源</a>
 					</div>
 				</li>
@@ -32,7 +32,7 @@
 					<div class="usernav" v-show="num==3">
 						<a href="">查询管理员</a>
 						<a href="">添加管理员</a>
-						<a href="">删除管理员</a>
+						<a href="#/backstage/deletemanager">删除管理员</a>
 					</div>
 				</li>
 			</ul>
