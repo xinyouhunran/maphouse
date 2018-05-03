@@ -19,6 +19,30 @@ connection.connect();
 var bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+var storage = multer.diskStorage({
+    //存储文件地方
+    destination:function(req,res,cb){
+        cb(null,"./images");
+    },
+    //存储文件名字
+    filename: function (req, file, cb) {
+        var fileFormat = file.originalname.split(".");
+        cb(null, file.fieldname + '-' + Date.now() + "." + fileFormat[fileFormat.length - 1])
+    }
+})
+//配置上传参数
+var upload = multer({
+    storage:storage
+})
+app.post("/upload",upload.any(),function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    if(req.files.length==0){
+        res.send('');
+    }else{
+        res.send(req.files[0].filename);
+    }
+})
 //查预约
 app.get("/test",function(req,res){
     res.append("Access-Control-Allow-Origin","*");

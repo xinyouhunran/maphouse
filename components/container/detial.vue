@@ -3,7 +3,7 @@
 	<xheader />
 	<div class="session-content intro" v-for="i in house">
 		<div class="intro-head">
-			<strong><a href="fruit.html">首页</a></strong>
+			<strong><a href="#/maphouse">首页</a></strong>
 			<span>><a href="##">房子</a>></span>
 			<span class="tit"></span>
 		</div>
@@ -135,12 +135,15 @@
     },
     mounted(){
       var _this = this;
-      if(this.$store.state.hid!=0){
+      if(this.$route.query.hid){
+        this.$store.state.hid=this.$route.query.hid;
+      }
+      if(this.$store.state.hid!=0||this.$route.query.hid){
           $.ajax({
           url:"http://localhost:1701/detial",
           type:"post",
           data:{
-            hid:_this.$store.state.hid
+            hid:!this.$route.query.hid?_this.$store.state.hid:this.$route.query.hid
           },
           success:function(data){
             data = JSON.parse(data);

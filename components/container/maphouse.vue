@@ -1,6 +1,7 @@
 <template>
 	<div class="hea">
 		<xheader />
+		<div @click="d">点我</div>
 		<div id="allmap"></div>
 		<div id="r-result" style="float:left;color:#64a131;font-size:1rem;">
 		城市名: <input id="cityName" type="text" style="width:16rem; margin-right:1rem;padding:0.5rem 0;outline:none;color:#aaa;" v-model="val"/>
@@ -55,6 +56,13 @@
 			}
 		},
 		methods:{
+			d(){
+				var l=new BMap.LocalSearch(this.map);
+				l.setSearchCompleteCallback(function(result){
+					console.log(result.getPoi(0));	
+				});
+				l.search("重庆沙坪坝区春华秋实");	
+			},
 			//点击房子列表时触发
 			giveHid(id){
 				this.$store.state.hid = id;
@@ -172,16 +180,18 @@
 						type:"GET",
 						url:"http://localhost:1701/getHouse",
 						success:function(result){
+							
 							if(result){
 								result = JSON.parse(result);
+								console.log(result);
 								for(var j in result){
-									console.log(result[j].city,_this.seacity);
+									// console.log(result[j].city,_this.seacity);
 									if(result[j].city == _this.seacity){
 										_this.house.push(result[j]);
 									}
 								}
 							}
-							console.log(_this.house);
+							// console.log(_this.house);
 							for(var i in result){
 								_this.data.push({
 									weidu:result[i].latitude,
@@ -189,10 +199,10 @@
 									contents:`<h4 style='margin:0 0 5px 0;padding:0.2em 0'>${result[i].hname}</h4>
 							<img style='float:right;margin:4px' id='imgDemo' src='${result[i].picture}' width='139' height='104' title='${result[i].hname}'/>
 							<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>${result[i].message}</p>
-							</div>`
+							<a href="#/detial?hid=${result[i].hid}">查看详情</a></div>`
 								})
 							}
-							console.log(_this.data);
+							// console.log(_this.data);
 							for(var i=0;i<_this.data.length;i++){
 								var marker = new BMap.Marker(new BMap.Point(_this.data[i].weidu,_this.data[i].jingdu));  // 创建标注
 								var content = _this.data[i].contents;

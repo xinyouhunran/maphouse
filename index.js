@@ -19,6 +19,7 @@ import xuser from "./components/back/xuser.vue";
 import xmanager from "./components/back/xmanager.vue";
 import deletehouse from "./components/back/deletehouse.vue";
 import deletemanager from "./components/back/deletemanager.vue";
+import addhouse from "./components/back/addhouse.vue";
 Vue.use(Vuex);
 //配置路由
 var router = new VueRouter({
@@ -72,6 +73,9 @@ var router = new VueRouter({
 		},{
 			path:"deletemanager",
 			component:deletemanager
+		},{
+			path:"addhouse",
+			component:addhouse
 		},
 		{
 			path:"/backstage",
