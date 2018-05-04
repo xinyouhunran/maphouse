@@ -286,5 +286,26 @@ app.post("/delmanager",function(req,res){
        res.send("1"); 
     })
 })
+//根据电话查找用户
+app.post("/finduser",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from users where tel = '${req.body.tel}'`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send(JSON.stringify(result)); 
+    })
+    
+})
+//添加房源
+app.post("/addhouse",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `insert into appoint(hid,userid) values (${req.body.hid},${req.body.userid})`;
+            connection.query(str,function(error,result1){
+                if(error) throw error;
+                console.log("执行");
+                res.send("1");
+            }) 
+})
 app.listen(1701);
 console.log("开启服务器");
