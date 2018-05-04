@@ -55,7 +55,7 @@
 				message:"",
 				host:"",
 				imgname:"",
-				userid:""，
+				userid:0,
 				hname:""
 			}
 		},
@@ -96,7 +96,7 @@
 								if(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/.test(_this.host)){
 									$.ajax({
 										type:"post",
-										url:"http:localhost:1701/finduser",
+										url:"http://localhost:1701/finduser",
 										data:{
 											tel:_this.host
 										},
@@ -120,7 +120,7 @@
 														picture:_this.imgname
 													},
 													success:(data1)=>{
-														
+
 													}
 												})
 											}else{
@@ -183,7 +183,7 @@ form div {
   margin-bottom: 26px;
   text-align: left;
 }
-form div:nth-of-type(7) input:last-of-type{
+form div:nth-of-type(8) input:last-of-type{
 	width: 60px;
 	padding: 0;
 	line-height: 40px;

@@ -1,7 +1,6 @@
 <template>
 	<div class="hea">
 		<xheader />
-		<div @click="d">点我</div>
 		<div id="allmap"></div>
 		<div id="r-result" style="float:left;color:#64a131;font-size:1rem;">
 		城市名: <input id="cityName" type="text" style="width:16rem; margin-right:1rem;padding:0.5rem 0;outline:none;color:#aaa;" v-model="val"/>
@@ -56,13 +55,13 @@
 			}
 		},
 		methods:{
-			d(){
+			/*d(){
 				var l=new BMap.LocalSearch(this.map);
 				l.setSearchCompleteCallback(function(result){
 					console.log(result.getPoi(0));	
 				});
 				l.search("重庆沙坪坝区春华秋实");	
-			},
+			},*/
 			//点击房子列表时触发
 			giveHid(id){
 				this.$store.state.hid = id;

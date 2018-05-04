@@ -23,7 +23,7 @@ app.use(bodyParser.json());
 var storage = multer.diskStorage({
     //存储文件地方
     destination:function(req,res,cb){
-        cb(null,"./images");
+        cb(null,"./public/images");
     },
     //存储文件名字
     filename: function (req, file, cb) {
@@ -300,7 +300,9 @@ app.post("/finduser",function(req,res){
 //添加房源
 app.post("/addhouse",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `insert into appoint(hid,userid) values (${req.body.hid},${req.body.userid})`;
+    var imgstr = `images/${req.body.picture}`;
+    console.log(req.body);
+    var str = `insert into house(hname,size,city,longitude,latitude,guige,direction,price,message,userid,state,picture) values ('${req.body.hname}','${req.body.size}','${req.body.city}','${req.body.latitude}','${req.body.longitude}','${req.body.guige}','朝东','${req.body.price}','${req.body.message}',${req.body.userid},0,'${imgstr}')`;
             connection.query(str,function(error,result1){
                 if(error) throw error;
                 console.log("执行");
