@@ -12,12 +12,10 @@
 		<div id="content">
 			<ul id="nav">
 				<li>
-					<h2 @click="changeNum(1)">房子</h2>
+					<h2 @click="changeNum(1)">房源</h2>
 					<div class="housenav" v-show="num==1">
 						<a href="#/backstage/xhouse">展示房源</a>
-						<a href="#/backstage/addhouse">增加房源</a>
 						<a href="#/backstage/deletehouse">删除房源</a>
-						<a href="">修改房源</a>
 					</div>
 				</li>
 				<li>
@@ -25,7 +23,6 @@
 					<div class="usernav" v-show="num==2">
 						<a href="">查询用户</a>
 						<a href="">删除用户</a>
-						<a href="">修改用户</a>
 					</div>
 				</li>
 				<li>

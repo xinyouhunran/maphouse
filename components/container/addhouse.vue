@@ -1,8 +1,8 @@
 <template>
 	<div>
-		
+		<xheader />
 		<div id="backmap"></div>
-		<div style="margin-left:1rem">
+		<div style="margin:0 1rem;position:relative;overflow:hidden;">
 		<form id="uploadForm">
 		<label for="">请选择城市</label>
 			<select style="width:10rem;text-align:center;color:#aaa;" v-model="city">
@@ -27,7 +27,7 @@
 			<label for="">信息</label><input type="text" placeholder="描述" v-model="message" required>
 		</div>
 		<div>
-			<label for="">电话</label><input type="text" placeholder="号码" v-model="host" required>
+			<label for="">电话</label><input type="text" placeholder="号码" v-model="host" required disabled>
 		</div>
 		<div>
 			<label for="">图片</label><input type="file" id="file" name="house" multiple />
@@ -37,14 +37,20 @@
     	</form>
 		
 		</div>
-		
+		<xfooter />
 	</div>
 </template>
 
 <script>
+	import xheader from "../common/xheader.vue";
+	import xfooter from "../common/xfooter.vue";
 	import $ from "jquery";
 	import "../../css/alert.css";
 	export default{
+		components:{
+			xheader,
+			xfooter
+		},
 		data(){
 			return{
 				map:"",
@@ -75,6 +81,7 @@
 	                	if(data!=""){
 	                		console.log(data);
 	                		this.imgname = data;
+	                		this.quealert("上传成功");
 	                	}
 	                	
 	                }
@@ -122,7 +129,9 @@
 														picture:_this.imgname
 													},
 													success:(data1)=>{
-
+														if(data1=="1"){
+															_this.quealert("房源发布成功")
+														}
 													}
 												})
 											}else{
@@ -166,14 +175,24 @@
 		},
 		mounted(){
 			var map = new BMap.Map("backmap");
-			this.map = map; 
+			this.map = map;
+			if(sessionStorage.getItem("user")){
+				this.host = sessionStorage.getItem("user");
+			}else{
+				this.quealert("您尚未登录，请先登录");
+				this.$router.push({path:"xlogin"});
+			} 
 		}
 	}
 </script>
 
 <style scoped>
 form{
-	margin-top: 1rem;
+	margin: 1rem auto;
+	width: 500px;
+	border: 1px solid #64a131;
+	padding-left: 116px;
+	padding-bottom: 10px;
 }
 form select{
 	height: 28px;
@@ -190,11 +209,12 @@ form div:nth-of-type(8) input:last-of-type{
 	padding: 0;
 	line-height: 40px;
 	height: 28px;
+	margin-left: 20px;
 }
 form label {
   line-height: 40px;
   font-size: 16px;
-  color: #fff;
+  color: #64a131;
   margin-right: 30px;
 }
 
@@ -214,6 +234,6 @@ button{
     color: #64a131;
     background: #fff;
     border-radius: 12px;
-    margin-left:392px;
+    margin-left: 170px;
 }
 </style>

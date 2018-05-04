@@ -17,7 +17,7 @@
 							<input type="checkbox" checked="checked" class="checkb"><label for="">记住密码</label>
 						</div>
 						<div>
-							<a href="#/xlogin" id="loginbtn" @click=myLogin()>登录</a>
+							<a href="#/xlogin" id="loginbtn" @click="myLogin()">登录</a>
 							<a href="#/xregister">注册会员</a>
 						</div>
 					</form>

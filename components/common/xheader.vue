@@ -8,11 +8,11 @@
 					<li><a href="#/maphouse">首页<span>Home</span></a></li>
 					<li><a href="#/houselist">房子<span>House</span></a></li>
 					<li><a href="#/premeet">预约<span>Premeet</span></a></li>
-					<li><a href="##" v-text="user">我的<span>Mine</span></a></li>
+					<li><a href="#/mine" v-text="user">我的<span>Mine</span></a></li>
 				</ul>
 			</div>
 			<div class="nav-r">
-				<div class="nav-r-l"><a href="#/xlogin">登录</a></div>
+				<div class="nav-r-l"><a href="#/xlogin" v-if="flag">登录</a></div>
 				<div class="nav-r-r"><a href="#/xregister">注册</a></div>
 			</div>
 		</div>
@@ -24,7 +24,8 @@
 	export default{
 		data(){
 			return {
-				user:"我的"
+				user:"我的",
+				flag:true
 			}
 		},
 		methods:{
@@ -35,6 +36,7 @@
 		mounted(){
 			if(sessionStorage.getItem("user")){
 				this.user = sessionStorage.getItem("user");
+				this.flag = false;
 			}
 		}
 	}

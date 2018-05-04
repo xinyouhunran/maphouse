@@ -310,4 +310,21 @@ app.post("/addhouse",function(req,res){
             }) 
 })
 app.listen(1701);
+//修改密码
+app.post("/updatepass",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `update users set password='${req.body.newpassword}' where password='${req.body.password}' and tel='${req.body.tel}'`;
+    connection.query(str,function(error,result){
+        if(error){
+            res.send("err");
+        }else{
+            if(result.affectedRows>0){
+                res.send("ok");
+            }else{
+                res.send("err");
+            }
+        }
+    })
+    
+})
 console.log("开启服务器");

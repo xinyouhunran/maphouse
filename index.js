@@ -12,6 +12,9 @@ import xregister from "./components/container/xregister.vue";
 import detial from "./components/container/detial.vue";
 import blogin from "./components/container/blogin.vue";
 import premeet from "./components/container/premeet.vue";
+import addhouse from "./components/container/addhouse.vue";
+import mine from "./components/container/mine.vue";
+import updatepass from "./components/container/updatepass.vue";
 
 //back
 import xhouse from "./components/back/xhouse.vue";
@@ -19,7 +22,7 @@ import xuser from "./components/back/xuser.vue";
 import xmanager from "./components/back/xmanager.vue";
 import deletehouse from "./components/back/deletehouse.vue";
 import deletemanager from "./components/back/deletemanager.vue";
-import addhouse from "./components/back/addhouse.vue";
+/*import addhouse from "./components/back/addhouse.vue";*/
 Vue.use(Vuex);
 //配置路由
 var router = new VueRouter({
@@ -55,6 +58,18 @@ var router = new VueRouter({
 		component:premeet
 	},
 	{
+		path:"/mine",
+		component:mine
+	},
+	{
+		path:"/addhouse",
+		component:addhouse
+	},
+	{
+		path:"/updatepass",
+		component:updatepass
+	},
+	{
 		path:"/backstage",
 		component:backstage,
 		children:[{
@@ -73,9 +88,6 @@ var router = new VueRouter({
 		},{
 			path:"deletemanager",
 			component:deletemanager
-		},{
-			path:"addhouse",
-			component:addhouse
 		},
 		{
 			path:"/backstage",
