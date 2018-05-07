@@ -21,17 +21,21 @@
 				<li>
 					<h2 @click="changeNum(2)">用户</h2>
 					<div class="usernav" v-show="num==2">
-						<a href="">查询用户</a>
-						<a href="">删除用户</a>
+						<a href="#/backstage/xuser">查询用户</a>
+						<a href="#/backstage/deleteuser">删除用户</a>
 					</div>
 				</li>
 				<li>
 					<h2 @click="changeNum(3)">管理员</h2>
 					<div class="usernav" v-show="num==3">
-						<a href="">查询管理员</a>
+						<a href="#/backstage/xmanager">查询管理员</a>
 						<a href="">添加管理员</a>
+						<a href="#/backstage/updatempass">修改密码</a>
 						<a href="#/backstage/deletemanager">删除管理员</a>
 					</div>
+				</li>
+				<li>
+					<h2 @click="exitb">退出登录</h2>
 				</li>
 			</ul>
 			<div class="con-r">
@@ -71,6 +75,10 @@
 					this.$router.push({path: "xhouse"});
 				}
 				
+			},
+			exitb(){
+				sessionStorage.removeItem("manager");
+				this.$router.push({path:"../blogin"});
 			}
 		},
 		mounted(){
@@ -117,6 +125,7 @@
 	border-radius: 10rem;
     height: 4rem;
     background: #64a131;
+    cursor:pointer;
 }   
 #content #nav li .housenav{
 	

@@ -22,6 +22,8 @@ import xuser from "./components/back/xuser.vue";
 import xmanager from "./components/back/xmanager.vue";
 import deletehouse from "./components/back/deletehouse.vue";
 import deletemanager from "./components/back/deletemanager.vue";
+import deleteuser from "./components/back/deleteuser.vue";
+import updatempass from "./components/back/updatempass.vue";
 /*import addhouse from "./components/back/addhouse.vue";*/
 Vue.use(Vuex);
 //配置路由
@@ -88,6 +90,12 @@ var router = new VueRouter({
 		},{
 			path:"deletemanager",
 			component:deletemanager
+		},{
+			path:"deleteuser",
+			component:deleteuser
+		},{
+			path:"updatempass",
+			component:updatempass
 		},
 		{
 			path:"/backstage",
@@ -101,6 +109,7 @@ var store = new Vuex.Store({
 		city:"重庆",
 		hid:0,//记录房子id
 		userid:0,//记录已登录用户的id
+		sflag:0//记录已登录管理员的状态
 	}
 })
 new Vue({

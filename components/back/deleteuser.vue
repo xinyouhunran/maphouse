@@ -1,30 +1,23 @@
 <template>
 	<div>
+		<!-- <button @click="a">dasda</button> -->
 		<form action="">
 			<div>
-				<label for="">您可以根据名称查询:</label><input type="text"  v-model="hname">
-				<button type="button" @click="findhname">查询</button>
+				<label for="">您可以根据账号查询:</label><input type="text"  v-model="tel">
+				<button type="button" @click="finduser">查询</button>
 			</div>
 		</form>
 		<table>
 			<thead>
 				<tr>
-					<th>序号</th><th>名称</th><th>大小</th><th>城市</th><th>经度</th><th>纬度</th><th>规格</th><th>价格</th><th>信息</th><th>图片</th><th>操作</th>
+					<th>序号</th><th>账号</th><th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="i in house">
-					<td v-text="i.hid"></td>
-					<td v-text="i.hname"></td>
-					<td v-text="i.size"></td>
-					<td v-text="i.city"></td>
-					<td v-text="i.longitude"></td>
-					<td v-text="i.latitude"></td>
-					<td v-text="i.guige"></td>
-					<td v-text="i.price"></td>
-					<td v-text="i.message"></td>
-					<td><img :src="i.picture" alt=""></td>
-					<td @click="del(i.hid)" style="cursor:pointer">删除</td>
+				<tr v-for="i in user">
+					<td v-text="i.userid"></td>
+					<td v-text="i.tel"></td>
+					<td @click="del(i.userid)" style="cursor:pointer">删除</td>
 				</tr>
 			</tbody>
 		</table>
@@ -36,51 +29,51 @@
 	export default{
 		data(){
 			return{
-				house:[],
-				hname:""
+				user:[],
+				tel:""
 			}
 		},
 		methods:{
 			del(id){
 				$.ajax({
 					type:"post",
-					url:"http://localhost:1701/delhouse",
+					url:"http://localhost:1701/deluser",
 					data:{
-						hid:id
+						userid:id
 					},
 					success:(data)=>{
 						if(data=="1"){
-							this.house = this.house.filter((val)=>{
-								return val.hid!=id;
-							})
+							this.manager=this.manager.filter((val)=>{
+								return val.userid!=id;	
+							});
 						}
 					}
 				})
 			},
-			findhname(){
+			finduser(){
 				var _this = this;
-				if(this.hname!=""){
+				if(this.tel!=""){
 					$.ajax({
 						type:"post",
-						url:"http://localhost:1701/findhname",
+						url:"http://localhost:1701/finduser",
 						data:{
-							hname:_this.hname
+							tel:_this.tel
 						},
 						success:function(data){
 							data = JSON.parse(data);
 							if(data.length!=0){
-								_this.house = [];
+								_this.user = [];
 								for(var i in data){
 									
-									_this.house.push(data[i]);
+									_this.user.push(data[i]);
 								}
 							}else{
-								_this.quealert("没有您所查找的房源信息");
+								_this.quealert("没有您所查找的用户信息");
 							}
 						}
 					})
 				}else{
-					this.quealert("名称不能为空");
+					this.quealert("账号不能为空");
 				}
 			},
 			quealert(val){
@@ -107,11 +100,11 @@
 			var _this = this;
 			$.ajax({
 				type:"get",
-				url:"http://localhost:1701/getHouse",
+				url:"http://localhost:1701/findalluser",
 				success:function(data){
 					data = JSON.parse(data);
 					for(var i in data){
-						_this.house.push(data[i]);
+						_this.user.push(data[i]);
 					}
 				}
 			})

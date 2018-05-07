@@ -177,7 +177,7 @@ app.post("/detial",function(req,res){
 //管理员登录验证
 app.post("/blogin",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from managers where mnumber='${req.body.number}' and mpassword='${req.body.password}'`;
+    var str = `select * from managers where mnumber='${req.body.number}' and mpassword='${req.body.password}' and delflag=0`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -258,7 +258,7 @@ app.post("/delhouse",function(req,res){
 //查找所有管理员
 app.get("/getManager",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from managers`;
+    var str = `select * from managers where delflag=0`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -268,7 +268,7 @@ app.get("/getManager",function(req,res){
 //根据账号查找管理员
 app.post("/findmnumber",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from managers where mnumber = '${req.body.mnumber}'`;
+    var str = `select * from managers where mnumber = '${req.body.mnumber}' and delflag=0`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -279,7 +279,7 @@ app.post("/findmnumber",function(req,res){
 //删除管理员
 app.post("/delmanager",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `delete from managers where mid=${req.body.mid}`;
+    var str = `update managers set delflag=1 where mid=${req.body.mid}`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -318,6 +318,47 @@ app.post("/updatepass",function(req,res){
         if(error){
             res.send("err");
         }else{
+            if(result.affectedRows>0){
+                res.send("ok");
+            }else{
+                res.send("err");
+            }
+        }
+    })
+    
+})
+//查找所有用户
+app.get("/findalluser",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from users`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send(JSON.stringify(result)); 
+    })
+    
+})
+//删除用户
+app.post("/deluser",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `delete from users where userid=${req.body.userid}`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send("1"); 
+    })
+})
+//修改管理员密码
+app.post("/updatempass",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    console.log(req.body);
+    var str = `update managers set mpassword='${req.body.newpassword}' where mpassword='${req.body.password}' and mnumber='${req.body.mnumber}'`;
+    console.log(str);
+    connection.query(str,function(error,result){
+        if(error){
+            res.send("err");
+        }else{
+            console.log(result.affectedRows);
             if(result.affectedRows>0){
                 res.send("ok");
             }else{

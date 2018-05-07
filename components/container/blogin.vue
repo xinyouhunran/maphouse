@@ -71,8 +71,10 @@
 							if(result.length!=0){
 								sessionStorage.setItem("manager",`${result[0].mnumber}`);
 								_this.$router.push({path: "backstage"});
+								_this.$store.state.sflag = result[0].state;
+
 							}else{
-								console.log(2);
+								_this.quealert("不存在此账号");
 							}
 						}
 					})

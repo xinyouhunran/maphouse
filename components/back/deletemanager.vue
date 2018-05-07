@@ -10,14 +10,13 @@
 		<table>
 			<thead>
 				<tr>
-					<th>序号</th><th>账号</th><th>密码</th><th>状态</th><th>操作</th>
+					<th>序号</th><th>账号</th><th>状态</th><th>操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="i in manager">
 					<td v-text="i.mid"></td>
 					<td v-text="i.mnumber"></td>
-					<td v-text="i.mpassword"></td>
 					<td v-text="i.state"></td>
 					<td @click="del(i.mid)" style="cursor:pointer">删除</td>
 				</tr>
