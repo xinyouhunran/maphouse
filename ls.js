@@ -245,6 +245,17 @@ app.post("/findhname",function(req,res){
     })
     
 })
+//根据房主id查找房源
+app.post("/findidhouse",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house where userid =${req.body.userid}`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send(JSON.stringify(result)); 
+    })
+    
+})
 //删除房子
 app.post("/delhouse",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
@@ -263,6 +274,30 @@ app.get("/getManager",function(req,res){
         if(error) throw error;
         console.log(result);
         res.send(JSON.stringify(result));
+    })
+})
+//查找id最大的管理员
+app.get("/getmaxmid",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from managers order by mid asc`;
+    connection.query(str,function(error,result){
+        if(error){
+            res.send("err");
+        }else{
+           console.log(result);
+            var mid = result[result.length-1].mid+1;
+            var mnumber = String4num(mid);
+            console.log(mnumber);
+            var str1 = `insert into managers(mid,mnumber,mpassword,state,delflag) values (${mid},'${mnumber}','123456',0,0)`;
+            connection.query(str1,(error,result)=>{
+                if(error){
+                    res.send("err");
+                }else{
+                    res.send("ok");
+                }
+            })
+            /*res.send(JSON.stringify(result)); */
+        }   
     })
 })
 //根据账号查找管理员
@@ -368,4 +403,18 @@ app.post("/updatempass",function(req,res){
     })
     
 })
+
+function String4num(num){
+    var n = ''+num;
+    console.log(n)
+    if(n.length==3){
+        return '0'+n;
+    }else if(n.length==2){
+        return '00'+n;
+    }else if(n.length==1){
+        return '000'+n;
+    }else{
+        return num;
+    }
+}
 console.log("开启服务器");

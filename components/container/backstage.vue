@@ -29,9 +29,9 @@
 					<h2 @click="changeNum(3)">管理员</h2>
 					<div class="usernav" v-show="num==3">
 						<a href="#/backstage/xmanager">查询管理员</a>
-						<a href="">添加管理员</a>
+						<a href="#/backstage" v-if="flag" @click="addmanager">添加管理员</a>
 						<a href="#/backstage/updatempass">修改密码</a>
-						<a href="#/backstage/deletemanager">删除管理员</a>
+						<a href="#/backstage/deletemanager" v-if="flag">删除管理员</a>
 					</div>
 				</li>
 				<li>
@@ -57,11 +57,13 @@
 <script>
 	import "../../css/header.css";
 	import "../../css/footer.css";
+	import "../../css/alert.css";
 	import $ from "jquery";
 	export default{
 		data(){
 			return{
 				num:1,//记录二级导航的显示和隐藏
+				flag:true
 			}
 		},
 		methods:{
@@ -79,11 +81,51 @@
 			exitb(){
 				sessionStorage.removeItem("manager");
 				this.$router.push({path:"../blogin"});
+			},
+			addmanager(){
+				this.num = 1;
+				$.ajax({
+					type:"get",
+					url:"http://localhost:1701/getmaxmid",
+					success:(data)=>{
+						if(data=='ok'){
+							this.quealert("添加成功");
+
+						}else{
+							this.quealert("添加失败");
+						}
+					}
+				})
+			},
+			quealert(val){
+				var div = document.createElement('div');
+	            div.className = 'alert';  
+	            var but = document.createElement('button');
+	            var p = document.createElement('p');
+	            p.className = 'quep';
+	            p.innerHTML = val;
+	            div.appendChild(p);
+	            but.innerHTML = '确定';
+	            but.className = 'que';
+	            div.appendChild(but); 
+	            var div1 = document.createElement('div');
+	            div1.className = 'meng';
+	            div1.appendChild(div);
+	            document.body.appendChild(div1);
+	            but.onclick = function(){
+	              div1.remove();
+	            }
 			}
 		},
 		mounted(){
+			//console.log(this.$store.state.sflag);
 			if(sessionStorage.getItem("manager")){
-
+				//console.log(2);
+				if(this.$store.state.sflag==1){
+					this.flag = true;
+				}else{
+					this.flag = false;
+				}
 			}else{
 				this.$router.push({path:"../blogin"});
 			}

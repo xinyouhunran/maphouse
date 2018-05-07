@@ -10,7 +10,7 @@
 				<a href="#/maphouse" @click="exit">退出登录</a>
 				<a href="#/updatepass">修改密码</a>
 				<a href="#/addhouse">发布房源</a>
-				<a href="#/maphouse">返回首页</a>
+				<a href="#/myhouse">我的房源</a>
 			</div>
 		</div>
 		<xfooter />

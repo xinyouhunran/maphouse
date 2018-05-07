@@ -45,15 +45,15 @@
 					<p v-text="i.message"></p>
 				</div>
 			</div>
-			<div class="intro-b-r">
-				<h5>最近浏览过</h5>
-				<ul class="liulan">
-					<!-- <li>
-						<div><a href="detial.html?"><img src="../imgs/sapple.jpg" alt=""></a></div>
-						<p>123</p>
-					</li> -->
-				</ul>
-			</div>
+			<!-- <div class="intro-b-r">
+        <h5>最近浏览过</h5>
+        <ul class="liulan">
+          <li>
+            <div><a href="detial.html?"><img src="../imgs/sapple.jpg" alt=""></a></div>
+            <p>123</p>
+          </li>
+        </ul>
+      </div> -->
 		</div>
 	</div>
 	<xfooter />

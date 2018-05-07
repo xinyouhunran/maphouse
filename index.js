@@ -15,6 +15,7 @@ import premeet from "./components/container/premeet.vue";
 import addhouse from "./components/container/addhouse.vue";
 import mine from "./components/container/mine.vue";
 import updatepass from "./components/container/updatepass.vue";
+import myhouse from "./components/container/myhouse.vue";
 
 //back
 import xhouse from "./components/back/xhouse.vue";
@@ -70,6 +71,9 @@ var router = new VueRouter({
 	{
 		path:"/updatepass",
 		component:updatepass
+	},{
+		path:"/myhouse",
+		component:myhouse
 	},
 	{
 		path:"/backstage",

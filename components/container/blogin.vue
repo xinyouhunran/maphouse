@@ -57,7 +57,7 @@
 			mLogin(){
 				var _this = this;
 				console.log(_this.number,_this.password);
-				if(/^\d{8}$/.test(_this.number)&&/^\w{6,}$/.test(_this.password)){
+				if(/^\d{4}$/.test(_this.number)&&/^\w{6,10}$/.test(_this.password)){
 					$.ajax({
 						type:"POST",
 						url:"http://localhost:1701/blogin",

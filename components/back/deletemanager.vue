@@ -31,7 +31,8 @@
 		data(){
 			return{
 				manager:[],
-				mnumber:""
+				mnumber:"",
+				flag:false,
 			}
 		},
 		methods:{
@@ -47,20 +48,25 @@
 				});	
 			},*/
 			del(id){
-				$.ajax({
-					type:"post",
-					url:"http://localhost:1701/delmanager",
-					data:{
-						mid:id
-					},
-					success:(data)=>{
-						if(data=="1"){
-							this.manager=this.manager.filter((val)=>{
-								return val.mid!=id;	
-							});
+				if(this.$store.state.sflag==1){
+					$.ajax({
+						type:"post",
+						url:"http://localhost:1701/delmanager",
+						data:{
+							mid:id
+						},
+						success:(data)=>{
+							if(data=="1"){
+								this.manager=this.manager.filter((val)=>{
+									return val.mid!=id;	
+								});
+							}
 						}
-					}
-				})
+					})
+				}else{
+					this.quealert("您不具有此项操作的权利");
+				}
+				
 			},
 			findmnumber(){
 				var _this = this;
@@ -109,6 +115,11 @@
 	        }
 		},
 		mounted(){
+			if(this.$store.state.sflag==1){
+				this.flag == true;
+			}else{
+				this.flag == false;
+			}
 			var _this = this;
 			$.ajax({
 				type:"get",
