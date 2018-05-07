@@ -31,7 +31,11 @@
 		</div>
 		<div>
 			<label for="">图片</label><input type="file" id="file" name="house" multiple />
-        	<input type="button" value="上传" @click="upload()" />
+        	<input type="button" value="上传" @click="upload(1)" />
+		</div>
+		<div>
+			<label for="">房产证明</label><input type="file" multiple name="prove"/>
+        	<input type="button" value="上传" @click="upload(2)" />
 		</div>
         <button type="button" @click="d">提交</button>
     	</form>
@@ -64,11 +68,12 @@
 				host:"",
 				imgname:"",
 				userid:0,
-				hname:""
+				hname:"",
+				prove:""
 			}
 		},
 		methods:{
-			upload(){
+			upload(n){
 				console.log($("#uploadForm")[0])
 	            $.ajax({
 	                url: "http://localhost:1701/upload",
@@ -78,10 +83,16 @@
 	                cache:false,
 	                data:new FormData($("#uploadForm")[0]),
 	                success:(data)=>{
-	                	if(data!=""){
+	                	if(data!=""&&n==1){
 	                		console.log(data);
 	                		this.imgname = data;
 	                		this.quealert("上传成功");
+	                	}else if(data!=""&&n==2){
+	                		console.log(data);
+	                		this.prove = data;
+	                		this.quealert("上传成功");
+	                	}else{
+	                		this.quealert("上传失败");
 	                	}
 	                	
 	                }
@@ -101,7 +112,7 @@
 						if(result.getPoi(0)){
 							console.log(result.getPoi(0));
 							console.log(result.getPoi(0).point);//lng,lat
-							if(_this.size!=""&&_this.guige!=""&&_this.price!=""&&_this.message!=""&&_this.host!=""&&_this.imgname!=""){
+							if(_this.size!=""&&_this.guige!=""&&_this.price!=""&&_this.message!=""&&_this.host!=""&&_this.imgname!=""&&_this.prove!=""){
 								if(/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/.test(_this.host)){
 									$.ajax({
 										type:"post",
@@ -126,7 +137,8 @@
 														price:_this.price,
 														message:_this.message,
 														userid:_this.userid,
-														picture:_this.imgname
+														picture:_this.imgname,
+														hprove:_this.prove
 													},
 													success:(data1)=>{
 														if(data1=="1"){

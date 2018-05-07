@@ -13,7 +13,7 @@
 				<div class="car-m-t">
 					<div></div>
 					<div><span>房子</span></div>
-					<div><span>信息</span></div>
+					<div><span>证明</span></div>
 					<div><span>单价(万元)</span></div>
 					<div><span>规格</span></div>
 					<div><span>城市</span></div>
@@ -28,7 +28,7 @@
 								<p><a href="##" v-text="i.hname"></a></p>
 							</div>
 							<div>
-								<p v-text="i.message"></p>
+								<p><img :src="i.hprove" alt=""></p>
 							</div>
 							<div><p v-text="i.price"></p></div>
 							<div><p v-text="i.guige"></p></div>

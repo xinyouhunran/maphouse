@@ -336,8 +336,9 @@ app.post("/finduser",function(req,res){
 app.post("/addhouse",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
     var imgstr = `images/${req.body.picture}`;
+    var provestr = `images/${req.body.hprove}`;
     console.log(req.body);
-    var str = `insert into house(hname,size,city,longitude,latitude,guige,direction,price,message,userid,state,picture) values ('${req.body.hname}','${req.body.size}','${req.body.city}','${req.body.latitude}','${req.body.longitude}','${req.body.guige}','朝东','${req.body.price}','${req.body.message}',${req.body.userid},0,'${imgstr}')`;
+    var str = `insert into house(hname,size,city,longitude,latitude,guige,direction,price,message,userid,state,picture,hprove) values ('${req.body.hname}','${req.body.size}','${req.body.city}','${req.body.latitude}','${req.body.longitude}','${req.body.guige}','朝东','${req.body.price}','${req.body.message}',${req.body.userid},0,'${imgstr}','${provestr}')`;
             connection.query(str,function(error,result1){
                 if(error) throw error;
                 console.log("执行");
