@@ -33,7 +33,7 @@
 						<span v-text="i.size"></span><span>平米</span>
 					</div>
 					<div class="abut">
-						<div class="buy"><a href="#/detial" @click="premeet">预约</a></div>
+						<div class="buy"><a href="#/detial" @click="premeet" v-if="flag">预约</a></div>
 					</div>
 				</div>
 			</div>
@@ -73,7 +73,9 @@
 		},
     data(){
       return {
-        house:[]
+        house:[],
+        flag:true
+
       }
     },
     methods:{
@@ -149,6 +151,9 @@
             data = JSON.parse(data);
             console.log(data);
             _this.house = data;
+            if(data[0].userid==_this.$store.state.userid){
+              _this.flag = false;
+            }
           }
         })
       }else{

@@ -187,7 +187,7 @@ app.post("/blogin",function(req,res){
 //预约
 app.post("/premeet",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str1 = `select * from appoint where hid=${req.body.hid} and userid=${req.body.userid}`;
+    var str1 = `select * from house where hid=${req.body.hid} and userid=${req.body.userid}`;
     connection.query(str1,function(error,result){
         if(error) throw error;
         console.log(result);
