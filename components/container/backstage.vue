@@ -16,6 +16,7 @@
 					<div class="housenav" v-show="num==1">
 						<a href="#/backstage/xhouse">展示房源</a>
 						<a href="#/backstage/deletehouse">删除房源</a>
+						<a href="#/backstage/checkhouse">房源审核</a>
 					</div>
 				</li>
 				<li>

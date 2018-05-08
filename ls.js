@@ -57,7 +57,7 @@ app.get("/test",function(req,res){
 //加载所有房源
 app.get("/getHouse",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house`;
+    var str = `select * from house where state=0`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -67,7 +67,7 @@ app.get("/getHouse",function(req,res){
 //加载所有房源,价格从高到低
 app.get("/priceHigh",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house order by price desc`;
+    var str = `select * from house where state=0 order by price desc`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -77,7 +77,7 @@ app.get("/priceHigh",function(req,res){
 //加载所有房源,价格从低到高
 app.get("/priceLow",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house order by price asc`;
+    var str = `select * from house where state=0 order by price asc`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -87,7 +87,7 @@ app.get("/priceLow",function(req,res){
 //加载所有房源,大小从大到小
 app.get("/sizeHigh",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house order by size desc`;
+    var str = `select * from house where state=0 order by size desc`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -97,7 +97,7 @@ app.get("/sizeHigh",function(req,res){
 //加载所有房源,大小从小到大
 app.get("/sizeLow",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house order by size asc`;
+    var str = `select * from house where state=0 order by size asc`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -107,7 +107,7 @@ app.get("/sizeLow",function(req,res){
 //三室一厅
 app.get("/threeone",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house where guige="三室一厅"`;
+    var str = `select * from house where state=0 and guige="三室一厅"`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -117,7 +117,7 @@ app.get("/threeone",function(req,res){
 //四室一厅
 app.get("/fourone",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house where guige="四室一厅"`;
+    var str = `select * from house where state=0 and guige="四室一厅"`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -127,7 +127,7 @@ app.get("/fourone",function(req,res){
 //其他规格
 app.get("/others",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house where guige!="三室一厅" and guige!="四室一厅"`;
+    var str = `select * from house where state=0 and guige!="三室一厅" and guige!="四室一厅"`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -237,7 +237,7 @@ app.post("/delpre",function(req,res){
 //根据房名查找房源
 app.post("/findhname",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house where hname like '%${req.body.hname}%'`;
+    var str = `select * from house where hname like '%${req.body.hname}%' and state=0`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
@@ -248,13 +248,40 @@ app.post("/findhname",function(req,res){
 //根据房主id查找房源
 app.post("/findidhouse",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house where userid =${req.body.userid}`;
+    var str = `select * from house where userid =${req.body.userid} and state=0`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);
        res.send(JSON.stringify(result)); 
     })
     
+})
+//根据state查找房源
+app.get("/findcheckhouse",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house where state=1`;
+    connection.query(str,function(error,result){
+        if(error) throw error;
+        console.log(result);
+       res.send(JSON.stringify(result)); 
+    })
+    
+})
+//检查房源
+app.post("/checkhouse",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `update house set state=${req.body.sta} where hid=${req.body.hid}`;
+    connection.query(str,function(error,result){
+        if(error){
+            res.send("err");
+        }else{
+            if(result.affectedRows>0){
+                res.send("ok");
+            }else{
+                res.send("err");
+            }
+        }
+    })
 })
 //删除房子
 app.post("/delhouse",function(req,res){
@@ -338,7 +365,7 @@ app.post("/addhouse",function(req,res){
     var imgstr = `images/${req.body.picture}`;
     var provestr = `images/${req.body.hprove}`;
     console.log(req.body);
-    var str = `insert into house(hname,size,city,longitude,latitude,guige,direction,price,message,userid,state,picture,hprove) values ('${req.body.hname}','${req.body.size}','${req.body.city}','${req.body.latitude}','${req.body.longitude}','${req.body.guige}','朝东','${req.body.price}','${req.body.message}',${req.body.userid},0,'${imgstr}','${provestr}')`;
+    var str = `insert into house(hname,size,city,longitude,latitude,guige,direction,price,message,userid,state,picture,hprove) values ('${req.body.hname}','${req.body.size}','${req.body.city}','${req.body.latitude}','${req.body.longitude}','${req.body.guige}','朝东','${req.body.price}','${req.body.message}',${req.body.userid},1,'${imgstr}','${provestr}')`;
             connection.query(str,function(error,result1){
                 if(error) throw error;
                 console.log("执行");

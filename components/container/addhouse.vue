@@ -34,7 +34,7 @@
         	<input type="button" value="上传" @click="upload(1)" />
 		</div>
 		<div>
-			<label for="">房产证明</label><input type="file" multiple name="prove"/>
+			<label for="">证明</label><input type="file" multiple name="prove"/>
         	<input type="button" value="上传" @click="upload(2)" />
 		</div>
         <button type="button" @click="d">提交</button>
@@ -217,6 +217,13 @@ form div {
   text-align: left;
 }
 form div:nth-of-type(8) input:last-of-type{
+	width: 60px;
+	padding: 0;
+	line-height: 40px;
+	height: 28px;
+	margin-left: 20px;
+}
+form div:nth-of-type(9) input:last-of-type{
 	width: 60px;
 	padding: 0;
 	line-height: 40px;

@@ -25,6 +25,7 @@ import deletehouse from "./components/back/deletehouse.vue";
 import deletemanager from "./components/back/deletemanager.vue";
 import deleteuser from "./components/back/deleteuser.vue";
 import updatempass from "./components/back/updatempass.vue";
+import checkhouse from "./components/back/checkhouse.vue";
 /*import addhouse from "./components/back/addhouse.vue";*/
 Vue.use(Vuex);
 //配置路由
@@ -100,6 +101,9 @@ var router = new VueRouter({
 		},{
 			path:"updatempass",
 			component:updatempass
+		},{
+			path:"checkhouse",
+			component:checkhouse
 		},
 		{
 			path:"/backstage",
