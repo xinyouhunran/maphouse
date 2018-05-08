@@ -74,7 +74,7 @@
 								_this.$store.state.sflag = result[0].state;
 
 							}else{
-								_this.quealert("不存在此账号");
+								_this.quealert("账号或密码输入错误");
 							}
 						}
 					})

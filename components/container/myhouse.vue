@@ -13,10 +13,10 @@
 				<div class="car-m-t">
 					<div></div>
 					<div><span>房子</span></div>
-					<div><span>证明</span></div>
+					<div><span>状态</span></div>
 					<div><span>单价(万元)</span></div>
 					<div><span>规格</span></div>
-					<div><span>城市</span></div>
+					<div><span>证明</span></div>
 					<div><span>操作</span></div>
 				</div>
 				<div class="car-m-list">
@@ -28,11 +28,11 @@
 								<p><a href="##" v-text="i.hname"></a></p>
 							</div>
 							<div>
-								<p><img :src="i.hprove" alt=""></p>
+								<p v-text="i.check"></p>
 							</div>
 							<div><p v-text="i.price"></p></div>
 							<div><p v-text="i.guige"></p></div>
-							<div><p v-text="i.city"></p></div>
+							<div><img :src="i.hprove" alt="" style="width:60px;height:80px;"></div>
 							<div><p @click="delhouse(i.hid)" class="del">删除</p></div>
 						</li>
 					</ul>
@@ -127,6 +127,13 @@
 						}else{
               _this.house = [];
 							for(var i in data){
+                if(data[i].state==0){
+                  data[i].check="审核通过";
+                }else if(data[i].state==1){
+                  data[i].check="待审核";
+                }else{
+                  data[i].check="审核失败";
+                }
                 _this.house.push(data[i]);
               }
 						}

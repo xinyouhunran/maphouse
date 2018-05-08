@@ -37,10 +37,25 @@ var upload = multer({
 })
 app.post("/upload",upload.any(),function(req,res){
     res.append("Access-Control-Allow-Origin","*");
+    /*var str="";
+    req.on("data",function(data){
+        str+=data;
+    });
+    req.on("end",function(){
+        console.log(str);
+    });*/
     if(req.files.length==0){
         res.send('');
     }else{
         res.send(req.files[0].filename);
+    }
+})
+app.post("/uploadsecond",upload.any(),function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    if(req.files.length==0){
+        res.send('');
+    }else{
+        res.send(req.files[1].filename);
     }
 })
 //查预约
@@ -248,7 +263,7 @@ app.post("/findhname",function(req,res){
 //根据房主id查找房源
 app.post("/findidhouse",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
-    var str = `select * from house where userid =${req.body.userid} and state=0`;
+    var str = `select * from house where userid =${req.body.userid}`;
     connection.query(str,function(error,result){
         if(error) throw error;
         console.log(result);

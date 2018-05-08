@@ -10,6 +10,7 @@
 			<option v-for="a in cityarr" v-text="a"></option>
 		</select>
 		<ul id="houselist">
+				<h2 v-if="flag">亲，暂时没有这里的房源信息哦~</h2>
 				<li v-for="i in house">
 					<a href="#/detial" @click="giveHid(i.hid)" >
 						<div class="himg"><img :src="i.picture" alt=""></div>
@@ -48,10 +49,10 @@
 				val:"",//搜索文本框的值
 				house:[],//房子信息
 				seacity:"",//搜索的城市
-				city:"重庆",//显示城市
+				city:"",//显示城市
 				cityarr:["重庆","北京","上海","天津"],//下拉菜单
 				data:[],//房子数据
-				
+				flag:false
 			}
 		},
 		methods:{
@@ -83,16 +84,25 @@
 						type:"GET",
 						url:"http://localhost:1701/getHouse",
 						success:function(result){
-							if(result){
-								result = JSON.parse(result);
+							result = JSON.parse(result);
+							/*console.log(result);*/
+							if(result.length!=0){
 								for(var j in result){
-									console.log(result[j].city,_this.seacity);
+									/*console.log(result[j].city,_this.seacity);*/
 									if(result[j].city == _this.seacity){
 										_this.house.push(result[j]);
 									}
 								}
+								console.log(_this.house);
+								if(_this.house.length==0){
+									_this.flag=true;
+								}else{
+									_this.flag=false;
+								}
+							}else{
+								_this.flag=true;
 							}
-							console.log(_this.house);
+							
 						}
 					})
 				}
@@ -112,7 +122,7 @@
 							if(result){
 								result = JSON.parse(result);
 								for(var j in result){
-									console.log(result[j].city,_this.seacity);
+									/*console.log(result[j].city,_this.seacity);*/
 									if(result[j].city == _this.seacity){
 										_this.house.push(result[j]);
 									}

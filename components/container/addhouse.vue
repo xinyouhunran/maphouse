@@ -3,6 +3,7 @@
 		<xheader />
 		<div id="backmap"></div>
 		<div style="margin:0 1rem;position:relative;overflow:hidden;">
+		<!-- <form id="uploadForm" action="http://localhost:1701/upload" enctype="multipart/form-data" ref="form"> -->
 		<form id="uploadForm">
 		<label for="">请选择城市</label>
 			<select style="width:10rem;text-align:center;color:#aaa;" v-model="city">
@@ -31,13 +32,13 @@
 		</div>
 		<div>
 			<label for="">图片</label><input type="file" id="file" name="house" multiple />
-        	<input type="button" value="上传" @click="upload(1)" />
+        	<input type="button" value="上传" @click="upload" />
 		</div>
 		<div>
 			<label for="">证明</label><input type="file" multiple name="prove"/>
-        	<input type="button" value="上传" @click="upload(2)" />
+        	<input type="button" value="上传" @click="uploadsecond" />
 		</div>
-        <button type="button" @click="d">提交</button>
+        <button type="button" @click.prevent="d">提交</button>
     	</form>
 		
 		</div>
@@ -73,8 +74,7 @@
 			}
 		},
 		methods:{
-			upload(n){
-				console.log($("#uploadForm")[0])
+			upload(){	
 	            $.ajax({
 	                url: "http://localhost:1701/upload",
 	                type: "POST",
@@ -83,11 +83,27 @@
 	                cache:false,
 	                data:new FormData($("#uploadForm")[0]),
 	                success:(data)=>{
-	                	if(data!=""&&n==1){
+	                	if(data!=""){
 	                		console.log(data);
 	                		this.imgname = data;
 	                		this.quealert("上传成功");
-	                	}else if(data!=""&&n==2){
+	                	}else{
+	                		this.quealert("上传失败");
+	                	}
+	                	
+	                }
+	            })
+			},
+			uploadsecond(){	
+	            $.ajax({
+	                url: "http://localhost:1701/uploadsecond",
+	                type: "POST",
+	                processData:false,
+	                contentType:false,
+	                cache:false,
+	                data:new FormData($("#uploadForm")[0]),
+	                success:(data)=>{
+	                	if(data!=""){
 	                		console.log(data);
 	                		this.prove = data;
 	                		this.quealert("上传成功");
@@ -99,6 +115,7 @@
 	            })
 			},
 			d(){
+
 				var _this = this;
 				var str = "";
 				var l=new BMap.LocalSearch(this.map);
@@ -124,6 +141,7 @@
 											data = JSON.parse(data);
 											if(data.length!=0){
 												_this.userid = data[0].userid;
+												/*_this.refs.from.submit();*/
 												$.ajax({
 													type:"post",
 													url:"http://localhost:1701/addhouse",
