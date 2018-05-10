@@ -81,7 +81,7 @@
                       }
                     })
                   }else{
-                    _this.quealert("用户已存在");
+                    _this.quealert("用户已存在,可进行登录");
                   }
                 }
               })
