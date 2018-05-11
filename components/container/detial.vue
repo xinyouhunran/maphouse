@@ -3,8 +3,8 @@
 	<xheader />
 	<div class="session-content intro" v-for="i in house">
 		<div class="intro-head">
-			<strong><a href="#/maphouse">首页</a></strong>
-			<span>><a href="##">房子</a>></span>
+			<strong><a href="#/maphouse">房源</a></strong>
+			<span>><a href="##">详情</a>></span>
 			<span class="tit"></span>
 		</div>
 		<div class="intro-m">

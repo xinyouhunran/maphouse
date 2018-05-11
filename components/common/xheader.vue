@@ -6,7 +6,7 @@
 				<img src="../../images/logo1.jpg" class="logo" @click="reindex">
 				<ul id="nav">
 					<li><a href="#/maphouse">首页<span>Home</span></a></li>
-					<li><a href="#/houselist">房子<span>House</span></a></li>
+					<li><a href="#/houselist">推荐<span>Recommend</span></a></li>
 					<li><a href="#/premeet">预约<span>Premeet</span></a></li>
 					<li><a href="#/mine" v-text="user">我的<span>Mine</span></a></li>
 				</ul>
