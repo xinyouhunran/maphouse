@@ -318,7 +318,7 @@ app.get("/getManager",function(req,res){
         res.send(JSON.stringify(result));
     })
 })
-//查找id最大的管理员
+//查找id最大的管理员并在之后添加
 app.get("/getmaxmid",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
     var str = `select * from managers order by mid asc`;
@@ -387,7 +387,7 @@ app.post("/addhouse",function(req,res){
                 res.send("1");
             }) 
 })
-app.listen(1701);
+
 //修改密码
 app.post("/updatepass",function(req,res){
     res.append("Access-Control-Allow-Origin","*");
@@ -460,4 +460,5 @@ function String4num(num){
         return num;
     }
 }
+app.listen(1701);
 console.log("开启服务器");

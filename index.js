@@ -51,7 +51,7 @@ var router = new VueRouter({
 	},
 	{
 		path:"/",
-		redirect:'/maphouse'
+		redirect:'/xlogin'
 	},
 	{
 		path:"/blogin",
