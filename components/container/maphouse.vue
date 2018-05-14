@@ -2,15 +2,15 @@
 	<div class="hea">
 		<xheader />
 		<div id="allmap"></div>
-		<div id="r-result" style="float:left;color:#64a131;font-size:1rem;">
-		城市名: <input id="cityName" type="text" style="width:16rem; margin-right:1rem;padding:0.5rem 0;outline:none;color:#aaa;" v-model="val"/>
+		<div id="r-result" style="float:left;color:#64a131;font-size:1rem;max-width:28%;width:28%;">
+		城市名: <input id="cityName" type="text" style="width:60%; margin-right:1rem;padding:0.5rem 0;outline:none;color:#aaa;" v-model="val"/>
 		<input type="button" value="查询" @click="theLocation" style="padding:0.5rem 1rem;background:#64a131;color:#fff;border-radius:1rem;outline:none;cursor:pointer;"/>
 		<h2 v-text="seacity"></h2>
 		<select style="width:10rem;text-align:center;color:#aaa;" v-model="city" @change="changeCity">
 			<option v-for="a in cityarr" v-text="a"></option>
 		</select>
 		<ul id="houselist">
-				<h2 v-if="flag">亲，暂时没有这里的房源信息哦~</h2>
+				<h2 v-if="flag">亲，没有这里的房源信息哦~</h2>
 				<li v-for="i in house">
 					<a href="#/detial" @click="giveHid(i.hid)" >
 						<div class="himg"><img :src="i.picture" alt=""></div>
@@ -37,6 +37,7 @@
 <script>
 	import xheader from "../common/xheader.vue";
 	import xfooter from "../common/xfooter.vue";
+	import "../../css/alert.css";
 	import $ from "jquery";
 	export default{
 		components:{
@@ -71,9 +72,10 @@
 			//搜索框值改变触发
 			theLocation(){
 				var _this = this;
-				this.house = [];
+				
 				/*var city = document.getElementById("cityName").value;*/
 				if(this.val != ""){
+					this.house = [];
 					_this.map.centerAndZoom(_this.val,11);     // 用城市名设置地图中心点
 					_this.$store.state.city = _this.val;
 					_this.seacity = _this.val;
@@ -105,6 +107,8 @@
 							
 						}
 					})
+				}else{
+					this.quealert("城市名不能为空");
 				}
 			},
 			//下拉框改变触发
@@ -131,6 +135,25 @@
 							console.log(_this.house);
 						}
 					})
+			},
+			quealert(val){
+				var div = document.createElement('div');
+	            div.className = 'alert';  
+	            var but = document.createElement('button');
+	            var p = document.createElement('p');
+	            p.className = 'quep';
+	            p.innerHTML = val;
+	            div.appendChild(p);
+	            but.innerHTML = '确定';
+	            but.className = 'que';
+	            div.appendChild(but); 
+	            var div1 = document.createElement('div');
+	            div1.className = 'meng';
+	            div1.appendChild(div);
+	            document.body.appendChild(div1);
+	            but.onclick = function(){
+	              div1.remove();
+	            }
 			}
 		},
 		mounted(){

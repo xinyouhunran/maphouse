@@ -10,10 +10,11 @@
 
 .nav .navall .nav-l {
   float: left;
+  max-width: 60%;
 }
 
 .nav .navall .nav-l .logo {
-  width: 18rem;
+  width: 24%;
   float: left;
   height: 7rem;
   cursor: pointer;
@@ -22,10 +23,12 @@
 .nav .navall .nav-l #nav {
   float: left;
   margin-left: 3rem;
+  width: 60%;
 }
 
 .nav .navall .nav-l #nav li {
   float: left;
+  max-width: 25%;
 }
 
 .nav .navall .nav-l #nav li a {
@@ -52,12 +55,13 @@
 
 .nav .navall .nav-r {
   float: right;
+  width: 22%;
 }
 
 .nav .navall .nav-r .nav-r-l {
   float: left;
   position: relative;
-  width: 11rem;
+  width: 40%;
   margin-top: 2rem;
   font-size: 1rem;
 }
@@ -76,7 +80,7 @@
 .nav .navall .nav-r .nav-r-r {
   position: relative;
   float: left;
-  width: 11rem;
+  width: 40%;
   margin-top: 2rem;
   font-size: 1rem;
   cursor: pointer;
