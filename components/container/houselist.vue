@@ -6,10 +6,10 @@
 			<div class="page-list">
 				<h5>价格</h5>
 				<div class="page-list-r">
-					<div class="leftpart"><a href="##"><span>全部</span></a></div>
+					<div class="leftpart"><a href="#/houselist"><span>选择</span></a></div>
 					<div class="rightpart">
-						<a href="#/houselist" @click="priceHigh"><span>从高到低</span></a>
-						<a href="#/houselist" @click="priceLow"><span>从低到高</span></a>
+						<a href="#/houselist" @click="priceHigh"><span :class="{green:flag==1}">从高到低</span></a>
+						<a href="#/houselist" @click="priceLow"><span :class="{green:flag==2}">从低到高</span></a>
 						
 					</div>
 				</div>
@@ -17,21 +17,21 @@
 			<div class="page-list">
 				<h5>大小</h5>
 				<div class="page-list-r">
-					<div class="leftpart"><a href="##"><span>全部</span></a></div>
+					<div class="leftpart"><a href="#/houselist"><span>选择</span></a></div>
 					<div class="rightpart">
-						<a href="#/houselist" @click="sizeHigh"><span>从大到小</span></a>
-						<a href="#/houselist" @click="sizeLow"><span>从小到大</span></a>
+						<a href="#/houselist" @click="sizeHigh"><span :class="{green:flag==3}">从大到小</span></a>
+						<a href="#/houselist" @click="sizeLow"><span :class="{green:flag==4}">从小到大</span></a>
 					</div>
 				</div>
 			</div>
 			<div class="page-list">
 				<h5>规格</h5>
 				<div class="page-list-r">
-					<div class="leftpart"><a href="##"><span>全部</span></a></div>
+					<div class="leftpart"><a href="#/houselist"><span>选择</span></a></div>
 					<div class="rightpart">
-						<a href="#/houselist" @click="threeone"><span>三室一厅</span></a>
-						<a href="#/houselist" @click="fourone"><span>四室一厅</span></a>
-						<a href="##" @click="others"><span>其他</span></a>
+						<a href="#/houselist" @click="threeone"><span :class="{green:flag==5}">三室一厅</span></a>
+						<a href="#/houselist" @click="fourone"><span :class="{green:flag==6}">四室一厅</span></a>
+						<a href="#/houselist" @click="others"><span :class="{green:flag==7}">其他</span></a>
 					</div>
 				</div>
 			</div>
@@ -74,7 +74,8 @@
 		},
     data(){
       return {
-        house:[]
+        house:[],
+        flag:0
       }
     },
     methods:{
@@ -85,6 +86,7 @@
       priceHigh(){
         var _this = this;
         this.house = [];
+        this.flag = 1;
         $.ajax({
             type:"GET",
             url:"http://localhost:1701/priceHigh",
@@ -102,6 +104,7 @@
       priceLow(){
         var _this = this;
         this.house = [];
+        this.flag = 2;
         $.ajax({
             type:"GET",
             url:"http://localhost:1701/priceLow",
@@ -119,6 +122,7 @@
       sizeHigh(){
         var _this = this;
         this.house = [];
+        this.flag = 3;
         $.ajax({
             type:"GET",
             url:"http://localhost:1701/sizeHigh",
@@ -136,6 +140,7 @@
       sizeLow(){
         var _this = this;
         this.house = [];
+        this.flag = 4;
         $.ajax({
             type:"GET",
             url:"http://localhost:1701/sizeLow",
@@ -153,6 +158,7 @@
       threeone(){
         var _this = this;
         this.house = [];
+        this.flag = 5;
         $.ajax({
             type:"GET",
             url:"http://localhost:1701/threeone",
@@ -172,6 +178,7 @@
       fourone(){
         var _this = this;
         this.house = [];
+        this.flag = 6;
         $.ajax({
             type:"GET",
             url:"http://localhost:1701/fourone",
@@ -191,6 +198,7 @@
       others(){
         var _this = this;
         this.house = [];
+        this.flag = 7;
         $.ajax({
             type:"GET",
             url:"http://localhost:1701/others",
@@ -247,6 +255,10 @@
 </script>
 
 <style scoped>
+.green{
+  background-color: #64a131;
+  color: #fff!important;
+}
 .yin {
   -webkit-box-shadow: 0 2px 8px rgba(230, 230, 230, 0.75);
   -moz-box-shadow: 0 2px 8px rgba(230, 230, 230, 0.75);
