@@ -14,25 +14,25 @@
 				<li>
 					<h2 @click="changeNum(1)">房源</h2>
 					<div class="housenav" v-show="num==1">
-						<a href="#/backstage/xhouse">展示房源</a>
-						<a href="#/backstage/deletehouse">删除房源</a>
-						<a href="#/backstage/checkhouse">房源审核</a>
+						<a href="#/backstage/xhouse" :class="{red:n==1}" @click="changeN(1)">展示房源</a>
+						<a href="#/backstage/deletehouse" :class="{red:n==2}" @click="changeN(2)">删除房源</a>
+						<a href="#/backstage/checkhouse" :class="{red:n==3}" @click="changeN(3)">房源审核</a>
 					</div>
 				</li>
 				<li>
 					<h2 @click="changeNum(2)">用户</h2>
 					<div class="usernav" v-show="num==2">
-						<a href="#/backstage/xuser">查询用户</a>
-						<a href="#/backstage/deleteuser">删除用户</a>
+						<a href="#/backstage/xuser" :class="{red:n==4}" @click="changeN(4)">查询用户</a>
+						<a href="#/backstage/deleteuser" :class="{red:n==5}" @click="changeN(5)">删除用户</a>
 					</div>
 				</li>
 				<li>
 					<h2 @click="changeNum(3)">管理员</h2>
 					<div class="usernav" v-show="num==3">
-						<a href="#/backstage/xmanager">查询管理员</a>
-						<a href="#/backstage" v-if="flag" @click="addmanager">添加管理员</a>
-						<a href="#/backstage/updatempass">修改密码</a>
-						<a href="#/backstage/deletemanager" v-if="flag">删除管理员</a>
+						<a href="#/backstage/xmanager" :class="{red:n==6}" @click="changeN(6)">查询管理员</a>
+						<a href="#/backstage" v-if="flag" @click="addmanager" :class="{red:n==7}">添加管理员</a>
+						<a href="#/backstage/updatempass" :class="{red:n==8}" @click="changeN(8)">修改密码</a>
+						<a href="#/backstage/deletemanager" v-if="flag" :class="{red:n==9}" @click="changeN(9)">删除管理员</a>
 					</div>
 				</li>
 				<li>
@@ -64,18 +64,25 @@
 		data(){
 			return{
 				num:1,//记录二级导航的显示和隐藏
-				flag:true
+				flag:true,
+				n:1
 			}
 		},
 		methods:{
+			changeN(num){
+				this.n = num;
+			},
 			changeNum(num){
 				this.num = num;
 				if(num==2){
 					this.$router.push({path: "xuser"});
+					this.n = 4;
 				}else if(num==3){
 					this.$router.push({path: "xmanager"});
+					this.n = 6;
 				}else{
 					this.$router.push({path: "xhouse"});
+					this.n = 1;
 				}
 				
 			},
@@ -85,6 +92,7 @@
 			},
 			addmanager(){
 				this.num = 1;
+				this.n = 1;
 				$.ajax({
 					type:"get",
 					url:"http://localhost:1701/getmaxmid",
@@ -134,6 +142,9 @@
 	}
 </script>
 <style scoped>
+.red{
+	color: red!important;
+}
 .nav{
 	background-color: #64a131;
 }

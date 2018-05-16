@@ -52,10 +52,13 @@
 						success:function(data){
 							if(data=="ok"){
 								_this.quealert("操作成功");
-								_this.$router.push({path:"xhouse"});
+								/*_this.$router.push({path:"xhouse?n=1"});*/
+								_this.house=_this.house.filter((val)=>{
+								return val.hid!=id;	
+							});
 							}else{
 								_this.quealert("操作失败");
-								_this.$router.push({path:"xhouse"});
+								/*_this.$router.push({path:"xhouse?n=1"});*/
 							}
 							
 						}
@@ -95,7 +98,7 @@
 						}
 					}else{
 						_this.quealert("没有需要审核的房源");
-						_this.$router.push({path:"xhouse"});
+						_this.$router.push({path:"checkhouse"});
 					}
 					
 				}
@@ -156,5 +159,7 @@ table tbody tr td span{
 	padding: 5px;
 	border: 1px solid #fff;
 	cursor:pointer;
+	display: inline-block;
+	width: 50%;
 }
 </style>
