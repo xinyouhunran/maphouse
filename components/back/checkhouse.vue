@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<form action="">
-			<div>
+			<div style="width:22%;margin:0 auto;">
 				<label for="">您将对房源进行审核</label>
 			</div>
 		</form>

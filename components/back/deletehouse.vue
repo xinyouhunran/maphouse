@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<form action="">
-			<div>
+			<div style="width:80%;margin:0 auto;">
 				<label for="">您可以根据名称查询:</label><input type="text"  v-model="hname">
 				<button type="button" @click="findhname">查询</button>
 			</div>

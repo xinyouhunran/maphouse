@@ -2,7 +2,7 @@
 	<div>
 		<!-- <button @click="a">dasda</button> -->
 		<form action="">
-			<div>
+			<div style="width:80%;margin:0 auto;">
 				<label for="">您可以根据账号查询:</label><input type="text"  v-model="mnumber">
 				<button type="button" @click="findmnumber">查询</button>
 			</div>
@@ -32,7 +32,6 @@
 			return{
 				manager:[],
 				mnumber:"",
-				flag:false,
 			}
 		},
 		methods:{
@@ -115,11 +114,6 @@
 	        }
 		},
 		mounted(){
-			if(this.$store.state.sflag==1){
-				this.flag == true;
-			}else{
-				this.flag == false;
-			}
 			var _this = this;
 			$.ajax({
 				type:"get",
@@ -164,7 +158,7 @@ form button{
 }
 table{
 	border-spacing: 0;
-	margin-top: 1rem;
+	margin:1rem auto;
 	border-collapse: collapse;
 }
 table thead tr th{
