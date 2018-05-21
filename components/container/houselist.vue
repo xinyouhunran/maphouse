@@ -354,6 +354,7 @@
   -o-box-sizing: border-box;
   box-sizing: border-box;
   transition: all 0.5s linear 0s;
+
 }
 
 .list-ul li:hover {
@@ -368,6 +369,8 @@
   border-bottom: 1px solid #ddd;
   float: left;
   width: 33.33%;
+  margin: 1rem 0;
+  padding: 1rem 0;
 }
 .list-ul li a{
   display: block;

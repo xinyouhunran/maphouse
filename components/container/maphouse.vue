@@ -132,6 +132,11 @@
 									}
 								}
 							}
+							if(_this.house.length==0){
+								_this.flag = true;
+							}else{
+								_this.flag = false;
+							}
 							console.log(_this.house);
 						}
 					})
@@ -264,9 +269,18 @@
 </script>
 <style scoped>
 h2{margin:0.3rem 0;}
-#houselist{max-height:40rem;overflow-y:auto;}
+#houselist{max-height:48rem;overflow-y:auto;}
 #houselist li{
 	border-bottom: 1px solid #ddd;
+	margin: 1rem 0;
+	transition: all 0.5s linear 0s;
+}
+#houselist li:hover {
+  -webkit-box-shadow: 0 0 20px #A5A5A5;
+  -moz-box-shadow: 0 0 20px #A5A5A5;
+  -ms-box-shadow: 0 0 20px #A5A5A5;
+  -o-box-shadow: 0 0 20px #A5A5A5;
+  box-shadow: 0 0 20px #A5A5A5;
 }
 #houselist li a{
 	display: block;
