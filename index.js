@@ -16,6 +16,7 @@ import addhouse from "./components/container/addhouse.vue";
 import mine from "./components/container/mine.vue";
 import updatepass from "./components/container/updatepass.vue";
 import myhouse from "./components/container/myhouse.vue";
+import adver from "./components/container/adver.vue";
 
 //back
 import xhouse from "./components/back/xhouse.vue";
@@ -51,7 +52,7 @@ var router = new VueRouter({
 	},
 	{
 		path:"/",
-		redirect:'/xlogin'
+		redirect:'/adver'
 	},
 	{
 		path:"/blogin",
@@ -75,6 +76,9 @@ var router = new VueRouter({
 	},{
 		path:"/myhouse",
 		component:myhouse
+	},{
+		path:"/adver",
+		component:adver
 	},
 	{
 		path:"/backstage",
