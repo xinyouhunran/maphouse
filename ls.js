@@ -446,7 +446,46 @@ app.post("/updatempass",function(req,res){
     })
     
 })
-
+//添加浏览历史
+app.post("/giveHis",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str1 = `select * from history where hid=${req.body.hid} and userid=${req.body.userid}`;
+    connection.query(str1,function(error,result){
+        if(error){
+            res.send("err");
+        }else{
+            if(result.length==0){
+                var str = `insert into history(hid,userid) values (${req.body.hid},${req.body.userid})`;
+                connection.query(str,function(error,result){
+                    if(error){
+                        res.send("err");
+                    }else{
+                        /*console.log(result.affectedRows);*/
+                        if(result.affectedRows>0){
+                            res.send("ok");
+                        }else{
+                            res.send("err");
+                        }
+                    }
+                })
+            }
+        }
+    })
+    
+})
+//获取浏览历史
+app.post("/getHis",function(req,res){
+    res.append("Access-Control-Allow-Origin","*");
+    var str = `select * from house,history where history.userid = ${req.body.userid} and history.hid = house.hid`;
+    connection.query(str,function(error,result){
+        if(error){
+            res.send("err");
+        }else{
+            result = JSON.stringify(result);
+            res.send(result);
+        }
+    })
+})
 function String4num(num){
     var n = ''+num;
     console.log(n)

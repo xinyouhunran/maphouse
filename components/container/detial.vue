@@ -45,15 +45,15 @@
 					<p v-text="i.message"></p>
 				</div>
 			</div>
-			<!-- <div class="intro-b-r">
+			<div class="intro-b-r">
         <h5>最近浏览过</h5>
         <ul class="liulan">
-          <li>
-            <div><a href="detial.html?"><img src="../imgs/sapple.jpg" alt=""></a></div>
-            <p>123</p>
+          <li v-for="i in history">
+            <div><a href="#/detial" @click="giveHid(i.hid)"><img :src="i.picture" alt=""></a></div>
+            <p v-text="i.hname"></p>
           </li>
         </ul>
-      </div> -->
+      </div>
 		</div>
 	</div>
 	<xfooter />
@@ -74,11 +74,20 @@
     data(){
       return {
         house:[],
-        flag:true
-
+        flag:true,
+        history:[],
+        hid:0
       }
     },
+    watch:{
+      "hid":"shua"
+    },
     methods:{
+      giveHid(id){
+        this.$store.state.hid = id;
+        console.log(this.$store.state.hid);
+        this.hid = id;
+      },
       premeet(){
         var _this = this;
         if(sessionStorage.getItem("user")){
@@ -133,19 +142,16 @@
               but.onclick = function(){
                 div1.remove();
               }
-      }
-    },
-    mounted(){
-      var _this = this;
-      if(this.$route.query.hid){
-        this.$store.state.hid=this.$route.query.hid;
-      }
-      if(this.$store.state.hid!=0||this.$route.query.hid){
+      },
+      shua(){
+        var _this = this;
+        console.log(1);
+        if(this.hid!=0||this.$route.query.hid){
           $.ajax({
           url:"http://localhost:1701/detial",
           type:"post",
           data:{
-            hid:!this.$route.query.hid?_this.$store.state.hid:this.$route.query.hid
+            hid:!this.$route.query.hid?_this.hid:this.$route.query.hid
           },
           success:function(data){
             data = JSON.parse(data);
@@ -156,6 +162,72 @@
             }
           }
         })
+        }
+      }
+    },
+    mounted(){
+      var _this = this;
+      this.hid = this.$store.state.hid;
+      if(this.$route.query.hid){
+        this.$store.state.hid=this.$route.query.hid;
+        this.hid = this.$store.state.hid;
+      }
+      if(sessionStorage.getItem('user')){
+        _this.history = [];
+        $.ajax({
+          url:"http://localhost:1701/getHis",
+          type:"post",
+          data:{
+            userid:_this.$store.state.userid
+          },
+          success:(data)=>{
+            data = JSON.parse(data);
+            if(data.length!=0){
+              if(data.length>=3){
+                for(var j=data.length-1;j>=data.length-3;j--){
+                  _this.history.push(data[j]);
+                }
+              }else{
+                _this.history = data;
+              }
+            }
+            console.log(_this.history);
+          }
+        })
+      }
+      if(this.hid!=0||this.$route.query.hid){
+          $.ajax({
+          url:"http://localhost:1701/detial",
+          type:"post",
+          data:{
+            hid:!this.$route.query.hid?_this.hid:this.$route.query.hid
+          },
+          success:function(data){
+            data = JSON.parse(data);
+            console.log(data);
+            _this.house = data;
+            if(data[0].userid==_this.$store.state.userid){
+              _this.flag = false;
+            }
+          }
+        })
+          if(sessionStorage.getItem('user')){
+            $.ajax({
+              url:"http://localhost:1701/giveHis",
+              type:"post",
+              data:{
+                hid:!_this.$route.query.hid?_this.hid:_this.$route.query.hid,
+                userid:_this.$store.state.userid
+              },
+              success:(data)=>{
+                if(data=='ok'){
+                  console.log('ok');
+                }else{
+                  console.log('err');
+                }
+              }
+            })
+          }
       }else{
         this.$router.push({path: "maphouse"});
       }    
@@ -454,7 +526,7 @@
 
 .intro .intro-b .intro-b-l {
   float: left;
-  width: 1002px;
+  width: 75%;
   border: 1px solid #ccc;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -465,7 +537,7 @@
 }
 
 .intro .intro-b .intro-b-l .intro-b-l-h {
-  width: 1000px;
+  /* width: 1000px; */
   background: #f1f1f1;
 }
 
@@ -494,7 +566,7 @@
 }
 
 .intro .intro-b .intro-b-l .mybimg {
-  width: 1000px;
+  /* width: 1000px; */
   padding: 2rem;
 }
 
