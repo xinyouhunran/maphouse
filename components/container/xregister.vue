@@ -76,6 +76,7 @@
                       success:function(data){
                         if(data=="1"){
                           _this.quealert("注册成功");
+                          _this.$router.push({path:'xlogin'});
                         }
                         
                       }

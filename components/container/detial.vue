@@ -159,6 +159,8 @@
             _this.house = data;
             if(data[0].userid==_this.$store.state.userid){
               _this.flag = false;
+            }else{
+              _this.flag = true;
             }
           }
         })
@@ -208,6 +210,8 @@
             _this.house = data;
             if(data[0].userid==_this.$store.state.userid){
               _this.flag = false;
+            }else{
+              _this.flag = true;
             }
           }
         })
