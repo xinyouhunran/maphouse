@@ -45,7 +45,7 @@
 				
 			}).then(()=>{
 				setTimeout(()=>{
-					this.$router.push({path:'maphouse'});
+					this.$router.push({path:'xlogin'});
 				},3000);
 			})
 			
